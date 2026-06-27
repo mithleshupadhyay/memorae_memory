@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from datetime import UTC, datetime, time, timedelta, timezone
 
-
 IST = timezone(timedelta(hours=5, minutes=30), name="IST")
 SCENARIO_NOW = datetime(2026, 4, 13, 3, 0, tzinfo=UTC)
 

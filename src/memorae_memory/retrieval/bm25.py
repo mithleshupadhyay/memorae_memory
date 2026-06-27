@@ -6,7 +6,6 @@ from collections import Counter
 
 from memorae_memory.shared.schemas import EventRecord
 
-
 TOKEN_PATTERN = re.compile(r"[a-z0-9][a-z0-9_'-]*", flags=re.IGNORECASE)
 
 

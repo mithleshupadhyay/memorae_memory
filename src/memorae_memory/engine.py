@@ -24,7 +24,6 @@ from memorae_memory.time_utils import (
     start_of_day_ist,
 )
 
-
 DEFAULT_QUERIES = [
     "What should I focus on today?",
     "What commitments am I at risk of missing?",
@@ -49,7 +48,7 @@ class MemoryEngine:
         cls,
         dataset_path: str,
         now: datetime = SCENARIO_NOW,
-    ) -> "MemoryEngine":
+    ) -> MemoryEngine:
         return cls(load_events(dataset_path), now=now)
 
     def answer(self, query: str) -> QueryResponse:

@@ -5,7 +5,6 @@ from pathlib import Path
 
 from memorae_memory.engine import MemoryEngine
 
-
 DATASET_PATH = Path(__file__).resolve().parents[1] / "data" / "memorae_mock_events.json"
 
 

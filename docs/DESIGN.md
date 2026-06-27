@@ -1,117 +1,383 @@
 # Design Document
 
-## Goal
+## 1. What This System Does
 
-The engine answers ambiguous personal-memory questions from a raw stream of 200 events. It assumes the current time is `2026-04-13T03:00:00Z` and must reason about what is urgent, overdue, stale, future-facing, and important without adding labels to the dataset.
+The dataset is a raw personal information stream. Each record has only:
 
-The implementation is intentionally dependency-free. In production I would replace some deterministic pieces with embedding retrieval, reranking, and LLM synthesis, but this assessment version keeps every decision inspectable and runnable offline.
+```json
+{
+  "timestamp": "2026-04-01T09:12:00Z",
+  "source": "whatsapp",
+  "content": "..."
+}
+```
 
-## Retrieval Architecture
+There are no labels, no task IDs, no memory flags, and no ground truth annotations. The system must infer what matters from the text, timestamp, and source.
 
-Retrieval is hybrid:
+The assessment asks the engine to answer questions such as:
 
-1. Query intent classification maps the user question to one of four main intents: today focus, risk of missing commitments, procrastination, or UIE proposal summary.
-2. Runtime signal extraction derives topics, dates, deadlines, scheduled events, action language, commitment language, update/correction language, preferences, noisy records, and future-observation flags.
-3. A small BM25 index provides lexical recall over raw content plus derived runtime terms such as topic names and signal codes.
-4. Intent-specific scoring combines BM25 with business signals. For example, the today query boosts Apr 13 IST calendar anchors and overdue commitments; the UIE query boosts corrections such as the Apr 10 to Apr 13 deadline update and the $48.5k procurement correction.
-5. Context construction caps selected records by event count, token estimate, duplicate content, and topic density.
+- What should I focus on today?
+- What commitments am I at risk of missing?
+- What have I been procrastinating on?
+- Summarize everything related to the UIE proposal.
 
-This gives the system more product judgment than pure keyword search. A random Slack message can match words, but it is downweighted if it is noisy, unrelated, or low urgency.
+The fixed scenario time is:
 
-## Memory Architecture
+```text
+2026-04-13T03:00:00Z
+```
 
-The raw event stream is treated as the source of truth. The system derives temporary memory structures at runtime:
+That means the system must reason about overdue items, today's work, stale facts, and future-facing events relative to that exact timestamp.
 
-- Event memory: normalized timestamp, source, content, and stable event ID.
-- Signal memory: extracted topics, due dates, scheduled dates, urgency, actionability, and stale-update markers.
-- Cluster memory: topic groups such as `uie_proposal`, `hiring_rubric`, `southridge_sow`, `mom_cardiology`, `admin_export`, and `incident_doc`.
-- Preference memory: durable user or stakeholder preferences such as Nina preferring risk-first decision memos and Aarav preferring agenda-first meetings.
-- Update memory: corrections and supersessions such as moved deadlines, approved blockers, old estimates, and cancelled blocks.
+## 2. High-Level Architecture
 
-No derived labels are written back into the dataset. In a larger system, these structures would be persisted in a feature/index store with provenance back to the raw event IDs.
+The engine follows a simple pipeline:
 
-## Context Construction Strategy
+```mermaid
+flowchart LR
+    A[Raw events JSON] --> B[Load and normalize events]
+    B --> C[Extract runtime signals]
+    C --> D[Build BM25 index]
+    D --> E[Retrieve candidates]
+    C --> E
+    E --> F[Build bounded context]
+    F --> G[Generate answer]
+    F --> H[Explain reasoning]
+    G --> I[Inspectable JSON output]
+    H --> I
+```
 
-The production prompt budget in the assignment is 100k tokens, but the system should not fill it. The implementation estimates tokens by word count and keeps only the highest-value records for each query.
+The important design choice is that the dataset is not modified. All labels and structures are derived at runtime.
+
+## 3. Runtime Memory Model
+
+The system creates temporary memory layers from the raw events.
+
+```mermaid
+flowchart TD
+    A[Raw Event Memory] --> B[Signal Memory]
+    B --> C[Topic / Cluster Memory]
+    B --> D[Commitment Memory]
+    B --> E[Preference Memory]
+    B --> F[Update Memory]
+    C --> G[Query Context]
+    D --> G
+    E --> G
+    F --> G
+```
+
+### Raw Event Memory
+
+This is the original event with:
+
+- Stable event ID
+- Timestamp
+- Source
+- Content
+
+Example:
+
+```text
+event_id=108
+timestamp=2026-04-09T07:55:00Z
+source=slack
+content="#uieng Aarav: Ignore my earlier deadline note. UIE proposal is now due Monday Apr 13 15:00 IST, not Friday Apr 10."
+```
+
+### Signal Memory
+
+Signals are derived facts such as:
+
+- Topic: `uie_proposal`, `hiring_rubric`, `southridge_sow`
+- Due date
+- Scheduled date
+- Action language
+- Commitment language
+- Update/correction language
+- Noise indicator
+- Urgency score
+
+These are not written back into the dataset.
+
+### Topic / Cluster Memory
+
+Related events are grouped into workstreams. Examples:
+
+| Cluster | Examples of matching signals |
+| --- | --- |
+| `uie_proposal` | UIE, Nina, appendix, rollback, procurement, SOC2, retry budget |
+| `hiring_rubric` | rubric, senior/junior split, interview calibration |
+| `southridge_sow` | Southridge, SOW, redlines, clause 8 |
+| `mom_cardiology` | Mom, cardiology report, appointment |
+| `incident_doc` | incident doc, prevention section, rollback drill |
+
+### Commitment Memory
+
+The engine treats messages with words like "due", "before", "promised", "please send", "need", or "I owe" as possible commitments.
+
+Example:
+
+```text
+Hiring rubric was due Apr 12. Please send the senior/junior scoring split by noon.
+```
+
+### Preference Memory
+
+Some events describe preferences that affect answer quality.
+
+Example:
+
+```text
+Nina dislikes architecture-heavy docs; she reads risk, rollout plan, and decision owner first.
+```
+
+This matters when summarizing the UIE proposal because it tells the engine what Nina wants.
+
+### Update Memory
+
+Some events override earlier facts.
+
+Example:
+
+```text
+Ignore my earlier deadline note. UIE proposal is now due Monday Apr 13 15:00 IST, not Friday Apr 10.
+```
+
+This makes the Apr 10 deadline stale.
+
+## 4. Retrieval Architecture
+
+Retrieval is hybrid. It combines simple lexical search with business signals.
+
+```mermaid
+flowchart TD
+    A[User query] --> B[Classify intent]
+    B --> C[Expand query profile]
+    C --> D[BM25 lexical scoring]
+    B --> E[Intent-specific signal scoring]
+    F[Runtime event signals] --> E
+    D --> G[Candidate ranking]
+    E --> G
+    G --> H[Top candidate events]
+```
+
+### Step 1: Classify Intent
+
+The engine maps the query into one of these intents:
+
+| Intent | Query example |
+| --- | --- |
+| `today_focus` | What should I focus on today? |
+| `risk_missing` | What commitments am I at risk of missing? |
+| `procrastination` | What have I been procrastinating on? |
+| `uie_proposal` | Summarize everything related to the UIE proposal. |
+| `generic` | Any other question |
+
+### Step 2: Expand Query Profile
+
+The query is expanded with intent-specific terms.
+
+For example, "What should I focus on today?" is expanded with terms like:
+
+```text
+today focus urgent due scheduled deadline calendar overdue proposal appendix hiring rubric
+```
+
+This helps recall events that do not use the exact wording from the question.
+
+### Step 3: Score With BM25
+
+BM25 gives lexical recall. It helps find records whose text matches the query or the expanded query profile.
+
+### Step 4: Score With Signals
+
+BM25 alone is not enough. A random Slack message can match a word but still be useless.
+
+The signal scorer boosts:
+
+- Due or overdue commitments
+- Current-day calendar events
+- Topic matches
+- Updates and corrections
+- Explicit consequences such as "late fee" or "release the slot"
+
+The scorer downranks:
+
+- Newsletters
+- Receipts
+- OTPs
+- Random channel chatter
+- Old background facts
+- Future non-calendar messages that the user may not have seen yet
+
+## 5. Context Construction Strategy
+
+The assessment says production may have:
+
+- 10k messages
+- 1k notes
+- 500 reminders
+- 100k-token context budget
+
+The right strategy is not to fill the whole budget. The system should choose the smallest useful context.
+
+```mermaid
+flowchart TD
+    A[Ranked candidate events] --> B{Duplicate content?}
+    B -->|Yes| C[Ignore duplicate]
+    B -->|No| D{Topic cap reached?}
+    D -->|Yes| E[Ignore extra same-topic events]
+    D -->|No| F{Token budget exceeded?}
+    F -->|Yes| G[Ignore lower-ranked event]
+    F -->|No| H[Add to selected context]
+    H --> I[Return context + ignored summary]
+```
+
+The context builder uses:
+
+- Maximum selected event count
+- Estimated token budget
+- Duplicate-content removal
+- Topic caps
+- Ignored-context diagnostics
 
 For this dataset:
 
-- Today and risk queries select roughly 18-20 records because they span several active workstreams.
-- The UIE proposal summary selects more records because the query asks for "everything related" to a single dense cluster.
-- Context builder dedupes repeated content and enforces a topic cap to avoid one noisy cluster crowding out other commitments.
-- The output includes ignored-context diagnostics so the reviewer can see whether records were excluded because of event limits, token budget, duplicate text, or topic caps.
+| Query type | Typical selected context |
+| --- | --- |
+| Today focus | Around 18 events |
+| Risk of missing commitments | Around 20 events |
+| Procrastination | Around 18 events |
+| UIE proposal summary | Around 22 events |
 
-At 10k messages, 1k notes, and 500 reminders, the same shape scales by moving retrieval into stages:
+The UIE query gets more records because the user asked for "everything related" to a single large cluster.
 
-1. Metadata prefilter by time window, source, known entity/topic, and actionability.
-2. Lexical and vector retrieval over chunks/events.
-3. Lightweight rerank with urgency, recency, source reliability, and update status.
-4. Cluster summarization for repeated or historical signals.
-5. Final context assembly with per-cluster budgets and citation-backed snippets.
+## 6. Contradiction And Recency Handling
 
-## Contradiction And Recency Handling
+The engine treats newer explicit updates as stronger than older facts.
 
-The engine treats newer explicit updates as stronger than older facts:
+```mermaid
+flowchart LR
+    A[Older fact] --> C{Newer explicit update?}
+    B[Newer event] --> C
+    C -->|Yes| D[Mark older fact stale]
+    C -->|No| E[Keep both with uncertainty]
+    D --> F[Use latest fact in answer]
+    E --> F
+```
 
-- UIE deadline: the original Friday Apr 10 deadline is superseded by the Apr 9 update moving it to Monday Apr 13 15:00 IST.
-- UIE review: the Apr 10 review is superseded by the Apr 13 14:30 IST calendar update.
-- Procurement: the old $42k estimate is superseded by the updated $48.5k year-one estimate.
-- Ravi/data-room: the latest signal says access is waiting on external-safe diagrams, not procurement.
-- Southridge: clause 8 is no longer treated as a blocker after the Apr 11 approval.
-- UIE work block: the Apr 12 block cancellation is respected, while the Apr 13 appendix block remains relevant.
+Concrete examples from the dataset:
 
-The reasoning block returns these resolutions for inspectability.
+| Topic | Older fact | Newer update | Final interpretation |
+| --- | --- | --- | --- |
+| UIE deadline | Due Apr 10 | Now due Apr 13 15:00 IST | Use Apr 13 |
+| UIE review | Review Apr 10 | Review moved to Apr 13 14:30 IST | Use Apr 13 review |
+| Procurement | Old estimate `$42k` | Updated estimate `$48.5k` | Use `$48.5k` |
+| Data-room access | May depend on procurement | Waiting on external-safe diagrams | Use diagrams as blocker |
+| Southridge clause 8 | Blocked on legal | Clause 8 approved | No longer blocked |
+| UIE work block | Apr 12 work block | Apr 12 block cancelled | Do not rely on Apr 12 block |
 
-## Answer Generation
+The output includes these resolutions in the `reasoning` section.
 
-This assessment version uses deterministic synthesis templates by intent. The templates are grounded by the selected context and explain uncertainty when completion evidence is absent.
+## 7. Answer Generation
 
-For example, "Summarize everything related to the UIE proposal" includes:
+This implementation uses deterministic answer templates by intent.
 
-- Latest due date and review time.
-- Nina's requested format.
-- Required proposal and appendix content.
-- Procurement correction.
-- Retry-budget dependency.
-- Ravi/data-room dependency.
-- Post-delivery FAQ follow-up.
-- Uncertainty that no final sent-confirmation exists.
+Why deterministic templates?
 
-In production, a small model could generate the final prose from the constructed context, but the same selected context and reasoning metadata should remain visible.
+- No external API key is required.
+- The reviewer can run it offline.
+- The answer is stable across runs.
+- The selected context and reasoning are easy to inspect.
 
-## Failure Modes
+In production, the final answer could be generated by an LLM using the same selected context. The retrieval, context, and reasoning layers should remain inspectable even if the answer text is model-generated.
 
-Known risks:
+### Example: UIE Proposal Answer
 
-- Date ambiguity: messages like "Tuesday appointment" without a date may require later calendar events to disambiguate.
-- Completion uncertainty: the stream often contains asks but not completion events, so unresolved status is inferred.
-- Future timestamps: the dataset contains events after the scenario time. The engine treats future calendar/reminder events as known schedule, while non-calendar future messages are downweighted unless they contain a near-term deadline or explicit update.
-- Topic ambiguity: "redlines" can refer to multiple workstreams unless another term anchors it.
-- Template brittleness: deterministic answer templates are reliable here but less flexible than model-based synthesis for unseen query types.
-- Missing private context: the system cannot know whether the user completed something outside the observed stream.
+The UIE answer includes:
 
-## Scaling Plan
+- Latest deadline: Apr 13 15:00 IST
+- Review: Apr 13 14:30 IST
+- External naming: Unified Intelligence Engine
+- Nina's preferred format
+- Required appendix items
+- Updated procurement estimate
+- Retry-budget dependency
+- Ravi/data-room dependency
+- Open uncertainty: no final sent-confirmation exists
 
-For a larger personal-memory dataset:
+## 8. Failure Modes
+
+No personal-memory system is perfect. Main risks:
+
+| Failure mode | Example | Mitigation |
+| --- | --- | --- |
+| Ambiguous dates | "Tuesday appointment" without exact date | Use nearby calendar records when available |
+| Missing completion events | User may have finished a task outside the stream | Say completion is uncertain |
+| Future timestamps | Some dataset events are after scenario time | Downrank future non-calendar messages |
+| Topic ambiguity | "redlines" could mean different workstreams | Require nearby anchor terms such as Southridge or SOW |
+| Stale summaries | Cached topic summary may miss a new update | Keep raw-event citations and refresh hot clusters |
+| Template limits | Deterministic templates may not fit every query | Route unknown queries to generic retrieval or an LLM in production |
+
+## 9. Scaling Plan
+
+For 10k messages, 1k notes, and 500 reminders:
+
+```mermaid
+flowchart TD
+    A[Ingestion] --> B[Store raw events]
+    A --> C[Extract signals]
+    C --> D[Feature store]
+    C --> E[Search indexes]
+    E --> F[BM25 index]
+    E --> G[Vector index]
+    D --> H[Hot commitment queue]
+    F --> I[Retriever]
+    G --> I
+    H --> I
+    I --> J[Reranker]
+    J --> K[Context builder]
+    K --> L[Answer + citations]
+```
+
+Production changes:
 
 - Store raw events in an append-only event log.
-- Extract runtime and persisted signals with provenance, confidence, and timestamps.
-- Maintain topic/entity indexes using a hybrid of lexical search, embeddings, and structured filters.
-- Build rolling summaries per topic and per commitment, but always keep citations to raw records.
-- Recompute priority queues for upcoming deadlines and stale commitments.
-- Use a small reranker for top 100-200 candidates, then build final context with cluster budgets.
-- Keep user-specific preference memory separate from task memory, with decay and confirmation rules.
+- Persist extracted signals with confidence and provenance.
+- Maintain BM25 and vector indexes.
+- Keep a hot queue for upcoming commitments and stale tasks.
+- Build rolling summaries per topic, but keep citations to raw events.
+- Use a lightweight reranker for the top 100-200 candidates.
+- Use per-cluster context budgets so one noisy topic does not dominate.
 
-## Optimization Question
+## 10. Optimization Question
 
-If latency must be under 2 seconds and cost must drop by 80%, I would:
+If latency must be under 2 seconds and cost must drop by 80%, change the system like this:
 
-- Precompute event signals, topic clusters, due dates, and rolling summaries at ingestion time.
-- Use metadata filters and BM25 first, then embeddings only for ambiguous or low-recall queries.
-- Cache query profiles and cluster summaries for common questions like "today" and "what am I missing?"
-- Route simple deadline/status queries to deterministic code or a small model.
-- Use a larger model only for final synthesis when the selected context is ambiguous or conflicting.
-- Maintain memory tiers: hot commitments and today's calendar in a fast store, warm topic summaries in a document index, cold raw history in cheap storage.
-- Keep answer quality by preserving citations, contradiction rules, and confidence/uncertainty fields even when using cheaper retrieval.
+```mermaid
+flowchart LR
+    A[Raw events] --> B[Precompute signals]
+    B --> C[Cache hot clusters]
+    C --> D[Fast metadata + BM25 retrieval]
+    D --> E{Ambiguous query?}
+    E -->|No| F[Deterministic answer / small model]
+    E -->|Yes| G[Vector search + larger model]
+    F --> H[Answer]
+    G --> H
+```
 
-Tradeoff: latency and cost improve, but rare or highly nuanced queries may lose recall if precomputed summaries are stale or if embedding retrieval is skipped too aggressively.
+Concrete changes:
+
+- Precompute topics, due dates, updates, and rolling summaries at ingestion time.
+- Cache common query outputs such as "today" and "what am I missing?"
+- Use metadata filters and BM25 first.
+- Use embeddings only when lexical retrieval is not enough.
+- Route simple deadline questions to deterministic code or a small model.
+- Use a larger model only for ambiguous, high-value, or conflict-heavy answers.
+- Keep hot memories in a fast store and old raw events in cheaper storage.
+
+Tradeoff:
+
+- Latency and cost improve.
+- Rare or subtle queries may lose recall if summaries are stale or embeddings are skipped too aggressively.
+- To protect quality, keep citations, contradiction rules, and uncertainty fields in every answer.

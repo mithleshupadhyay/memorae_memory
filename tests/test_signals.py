@@ -7,7 +7,6 @@ from memorae_memory.events import load_events
 from memorae_memory.signals import extract_signals
 from memorae_memory.time_utils import parse_utc
 
-
 DATASET_PATH = Path(__file__).resolve().parents[1] / "data" / "memorae_mock_events.json"
 
 

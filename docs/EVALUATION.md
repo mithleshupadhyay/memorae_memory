@@ -1,87 +1,258 @@
 # Evaluation Framework
 
-## What Good Means
+## 1. Goal
 
-For subjective questions like "What should I focus on today?", a good answer is:
+The system should not only "sound good." It should help the user act on the right memories at the right time.
 
-- Time-aware: uses `2026-04-13T03:00:00Z` and IST deadlines correctly.
-- Prioritized: puts urgent and important items first, not merely recent messages.
-- Grounded: every claim can be traced to selected events.
-- Update-aware: stale facts are superseded by newer corrections.
-- Selective: avoids dumping newsletters, receipts, random Slack chatter, and unrelated saved links.
-- Useful: gives concrete next actions and names dependencies.
-- Honest: states uncertainty when completion evidence is missing.
+For this assessment, evaluation should answer three questions:
 
-## Offline Evals
+1. Did the system retrieve the right events?
+2. Did the answer use those events correctly?
+3. Did it avoid stale, noisy, or misleading information?
 
-Build a small gold set of query expectations without modifying the dataset. The gold set should contain required facts, stale facts to avoid, and acceptable uncertainty.
+## 2. Evaluation Overview
 
-Example test cases:
+```mermaid
+flowchart TD
+    A[Raw dataset] --> B[Run query set]
+    B --> C[Collect answer JSON]
+    C --> D[Offline evals]
+    C --> E[Regression tests]
+    C --> F[Human review]
+    D --> G[Quality report]
+    E --> G
+    F --> G
+```
 
-- UIE proposal summary must include Apr 13 15:00 IST due date, Apr 13 14:30 IST Nina review, Unified Intelligence Engine external naming, $48.5k estimate, data retention/SOC2/procurement appendix needs, retry-budget dependency, and Ravi/external-safe diagram dependency.
-- UIE summary must not treat Apr 10 as the current due date or $42k as the current estimate.
-- Today focus must include UIE proposal/appendix and hiring rubric before lower-signal personal tasks.
-- Risk query must include hiring rubric overdue status, Southridge redlines, Mom cardiology summary, and due-soon personal admin.
-- Procrastination query must include repeated nudges or "slips again" patterns such as redlines, admin export screenshots, school upload, insurance, incident doc, and UIE diagrams.
+There are three evaluation layers:
 
-Metrics:
+| Layer | Purpose |
+| --- | --- |
+| Offline evals | Check quality against expected facts and stale facts. |
+| Online evals | Measure whether users accept and act on recommendations. |
+| Regression tests | Prevent known bugs from coming back. |
 
-- Required-fact recall: percentage of expected facts present.
-- Stale-fact precision: percentage of superseded facts avoided or explicitly marked stale.
-- Citation coverage: percentage of answer claims supported by selected context.
-- Noise rejection: percentage of selected context that is not random chatter, receipts, OTPs, or newsletters.
-- Priority agreement: rank correlation between expected top priorities and answer order.
-- Token efficiency: selected-context tokens divided by available budget.
+## 3. What A Good Answer Means
 
-## Online Evals
+For a subjective question like:
 
-Online evaluation should measure whether the memory assistant helps the user act.
+```text
+What should I focus on today?
+```
 
-Signals:
+a good answer should be:
 
-- User accepts, edits, or dismisses suggested priorities.
-- User clicks/open selected source events.
+| Quality | Meaning |
+| --- | --- |
+| Time-aware | Uses `2026-04-13T03:00:00Z` and IST deadlines correctly. |
+| Prioritized | Puts urgent and important work first. |
+| Grounded | Every important claim maps to selected events. |
+| Update-aware | Uses newer corrections instead of stale facts. |
+| Selective | Avoids newsletters, receipts, OTPs, and random chatter. |
+| Useful | Gives concrete next actions and dependencies. |
+| Honest | Says when completion status is uncertain. |
+
+## 4. Offline Evaluation
+
+Offline evals use a small gold set. The gold set should not modify the dataset. It should live separately as expected facts, stale facts, and ranking expectations.
+
+```mermaid
+flowchart LR
+    A[Query] --> B[System answer]
+    C[Gold expectations] --> D[Evaluator]
+    B --> D
+    D --> E[Metrics]
+```
+
+### Example Gold Expectations
+
+#### Query: Summarize everything related to the UIE proposal
+
+Required facts:
+
+- Latest due date is Apr 13 15:00 IST.
+- Nina review is Apr 13 14:30 IST.
+- External name is Unified Intelligence Engine.
+- Updated procurement estimate is `$48.5k`.
+- Appendix needs data retention, SOC2 wording, and procurement estimate.
+- Proposal needs failure modes.
+- Retry-budget decision must be written before sub-2s retrieval claims.
+- Ravi/data-room access depends on external-safe diagrams.
+- No event confirms final proposal delivery.
+
+Stale facts to avoid:
+
+- Do not present Apr 10 as the current due date.
+- Do not present `$42k` as the current estimate.
+- Do not say data-room access is blocked on procurement after the Apr 12 update.
+
+#### Query: What should I focus on today?
+
+Expected priority:
+
+1. UIE proposal and appendix.
+2. Hiring rubric, because it is already late.
+3. Near-term commitments such as Southridge, Mom cardiology summary, dental confirmation, apartment payment, and incident doc closure.
+
+#### Query: What commitments am I at risk of missing?
+
+Expected items:
+
+- UIE proposal/appendix.
+- Hiring rubric.
+- Southridge SOW redlines.
+- Mom cardiology report summary.
+- Dental confirmation.
+- Apartment maintenance payment.
+- Car insurance renewal.
+
+#### Query: What have I been procrastinating on?
+
+Expected patterns:
+
+- Repeated nudges.
+- "Still need" language.
+- "Slips again" language.
+- Old asks with no completion evidence.
+
+Expected examples:
+
+- Redlines.
+- Admin export screenshots.
+- School upload.
+- Insurance renewal.
+- Incident doc.
+- UIE diagrams/data-room access.
+- Hiring rubric.
+
+### Offline Metrics
+
+| Metric | Definition |
+| --- | --- |
+| Required-fact recall | Expected facts present in the answer / total expected facts. |
+| Stale-fact precision | Superseded facts avoided or marked stale / total stale facts. |
+| Citation coverage | Important answer claims supported by selected context. |
+| Noise rejection | Selected context that is not random chatter, receipts, OTPs, or newsletters. |
+| Priority agreement | Whether top answer items match expected priority order. |
+| Token efficiency | Selected context tokens / available context budget. |
+| Uncertainty quality | Whether missing completion evidence is stated clearly. |
+
+## 5. Online Evaluation
+
+Online evals measure whether the assistant helps the real user.
+
+```mermaid
+flowchart TD
+    A[Assistant answer] --> B[User action]
+    B --> C{Feedback signal}
+    C --> D[Accepted]
+    C --> E[Edited]
+    C --> F[Dismissed]
+    C --> G[Marked wrong]
+    D --> H[Online metrics]
+    E --> H
+    F --> H
+    G --> H
+```
+
+Useful product signals:
+
+- User accepts a suggested priority.
+- User clicks or opens selected source events.
 - User marks a commitment as done, snoozed, irrelevant, or wrong.
-- Time to complete overdue tasks after assistant recommendation.
-- Frequency of "why did you show this?" or "you missed X" feedback.
-- Explicit trust rating on answers with conflicting evidence.
+- User edits the answer before using it.
+- User asks "why did you show this?"
+- User says "you missed X."
+- Task completion time decreases after recommendations.
 
-Guardrail metrics:
+Online metrics:
 
-- False urgent rate: low-priority item shown as urgent.
-- Missed urgent rate: urgent item not shown.
-- Stale update rate: answer uses an old fact after a newer correction exists.
-- Context bloat rate: answer uses more context than needed for comparable quality.
+| Metric | Meaning |
+| --- | --- |
+| Acceptance rate | How often the user accepts suggested priorities. |
+| Edit rate | How often the user must correct the answer. |
+| Dismissal rate | How often suggested items are irrelevant. |
+| Missed urgent rate | Urgent items that should have appeared but did not. |
+| False urgent rate | Low-priority items shown as urgent. |
+| Stale update rate | Answers that use old facts after a newer update exists. |
+| Source-open rate | How often users inspect selected evidence. |
 
-## Regression Tests
+## 6. Regression Tests
 
-Regression tests should run on every change to signal extraction, retrieval, context building, or answer generation.
+Regression tests protect known behavior.
 
-Current implemented tests should verify:
+```mermaid
+flowchart LR
+    A[Code change] --> B[Run unit tests]
+    B --> C[Run query tests]
+    C --> D{Pass?}
+    D -->|Yes| E[Safe to submit]
+    D -->|No| F[Fix retrieval or signals]
+```
 
-- UIE Apr 10 deadline is superseded by Apr 13.
-- UIE review moved from Apr 10 to Apr 13.
-- $48.5k estimate appears in UIE context.
-- Random/noisy records are downweighted.
-- Context builder dedupes repeated content and respects event/token caps.
-- Required query outputs contain the expected high-level facts.
+Current implemented tests verify:
 
-Additional regression cases to add with more time:
+- Dataset loads all 200 events.
+- UIE deadline update prefers Apr 13 over Apr 10.
+- UIE review update prefers Apr 13 14:30 IST.
+- Mom cardiology appointment keeps the correct Apr 14 date.
+- Noisy random messages are marked as noise.
+- Context builder dedupes repeated content.
+- Context builder respects event and token limits.
+- Required query outputs contain inspectable reasoning.
+- UIE summary keeps key update events in selected context.
+- Today focus avoids generic focus blocks.
+- Risk query keeps due-soon personal deadlines.
 
-- Completion event added after an ask should remove it from overdue answers.
-- Contradictory "not doing this anymore" update should cancel a commitment.
-- Future non-calendar messages should not dominate today answers.
-- Calendar events should remain usable as future schedule.
-- Same topic with multiple stale reminders should collapse into one cluster summary.
+Run them with:
 
-## Human Review Rubric
+```bash
+make test
+```
 
-For each answer, a human evaluator can score 1-5 on:
+## 7. Human Review Rubric
 
-- Relevance: selected records actually answer the query.
-- Specificity: answer names people, deadlines, dependencies, and next actions.
-- Temporal correctness: deadlines and moved updates are handled correctly.
-- Context discipline: answer does not include noisy or unrelated details.
-- Uncertainty handling: ambiguous completion status is stated clearly.
+Each answer can be scored from 1 to 5.
 
-An answer is production-acceptable if it averages at least 4, has no critical stale-fact errors, and includes citations for all high-impact claims.
+| Dimension | 1 means | 5 means |
+| --- | --- | --- |
+| Relevance | Selected events do not answer the query. | Selected events directly support the answer. |
+| Specificity | Answer is vague. | Answer names people, dates, blockers, and next actions. |
+| Temporal correctness | Uses stale or wrong deadlines. | Correctly handles current time, due dates, and updates. |
+| Context discipline | Dumps noisy or unrelated events. | Uses only useful context. |
+| Uncertainty handling | Pretends unknown facts are known. | Clearly states what is uncertain. |
+
+Production-acceptable answer:
+
+- Average score is at least 4.
+- No critical stale-fact error.
+- High-impact claims have source evidence.
+- The answer is useful enough for the user to act.
+
+## 8. Example Evaluation Table
+
+| Query | Must include | Must avoid |
+| --- | --- | --- |
+| UIE proposal summary | Apr 13 deadline, Nina review, `$48.5k`, Ravi diagram dependency | Apr 10 as current deadline, `$42k` as current estimate |
+| Today focus | UIE, hiring rubric, near-term commitments | Random Slack chatter, generic saved links |
+| Risk of missing | Overdue and due-soon commitments | Completed or superseded blockers |
+| Procrastination | Repeated nudges and stale asks | One-off low-impact messages |
+
+## 9. Cost And Latency Evaluation
+
+If the product target becomes under 2 seconds and cost must drop by 80%, evaluation should also track:
+
+| Metric | Why it matters |
+| --- | --- |
+| P50/P95 latency | User-facing responsiveness. |
+| Retrieval latency | Whether search is the bottleneck. |
+| Rerank latency | Whether reranking is too expensive. |
+| Model cost per answer | Whether answer generation is affordable. |
+| Cache hit rate | Whether common queries are being reused. |
+| Quality after routing | Whether cheaper paths hurt answer quality. |
+
+The main tradeoff is simple:
+
+- More precomputation and caching reduces latency and cost.
+- Too much caching can make answers stale.
+- The system should preserve citations and update checks even on the cheap path.

@@ -1,10 +1,18 @@
-.PHONY: run test example
+DATASET ?= data/memorae_mock_events.json
 
-run:
-	PYTHONPATH=src python -m memorae_memory.main --dataset data/memorae_mock_events.json
+.PHONY: install run test example lint
 
-example:
-	PYTHONPATH=src python -m memorae_memory.main --dataset data/memorae_mock_events.json --output outputs/example_run.json
+install:
+	poetry install
 
-test:
-	PYTHONPATH=src python -m unittest
+run: install
+	poetry run memorae-memory --dataset $(DATASET)
+
+example: install
+	poetry run memorae-memory --dataset $(DATASET) --output outputs/example_run.json
+
+test: install
+	poetry run python -m unittest
+
+lint: install
+	poetry run ruff check src tests

@@ -1,15 +1,18 @@
-[project]
+[tool.poetry]
 name = "memorae-memory"
 version = "0.1.0"
 description = "Inspectable personal-memory retrieval and answering engine for the Memorae AI Engineer assessment"
+authors = ["Mithlesh Upadhyay <mithleshupadhyay515@gmail.com>"]
 readme = "README.md"
-requires-python = ">=3.12"
-authors = [
-  { name = "Mithlesh Upadhyay", email = "mithleshupadhyay515@gmail.com" }
-]
-dependencies = []
+packages = [{ include = "memorae_memory", from = "src" }]
 
-[project.scripts]
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.15.14"
+
+[tool.poetry.scripts]
 memorae-memory = "memorae_memory.main:main"
 
 [tool.ruff]
@@ -18,7 +21,8 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
 
 [build-system]
-requires = ["setuptools>=69"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
