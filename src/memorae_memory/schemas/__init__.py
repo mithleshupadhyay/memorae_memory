@@ -1,9 +1,10 @@
-from memorae_memory.shared.schemas import (
+from memorae_memory.schemas.models import (
     CandidateEvent,
     ContextBuildResponse,
     ContextEvent,
     EventRecord,
     EventSignal,
+    JsonObject,
     QueryIntent,
     QueryResponse,
 )
@@ -14,6 +15,7 @@ __all__ = [
     "ContextEvent",
     "EventRecord",
     "EventSignal",
+    "JsonObject",
     "QueryIntent",
     "QueryResponse",
 ]

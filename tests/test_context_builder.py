@@ -4,7 +4,7 @@ import unittest
 from datetime import UTC, datetime
 
 from memorae_memory.retrieval.context_builder import build_context
-from memorae_memory.shared.schemas import CandidateEvent, EventRecord, EventSignal
+from memorae_memory.schemas import CandidateEvent, EventRecord, EventSignal
 
 
 def make_candidate(event_id: int, content: str, topic: str = "topic") -> CandidateEvent:

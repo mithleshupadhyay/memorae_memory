@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 
-from memorae_memory.shared.schemas import CandidateEvent, ContextBuildResponse, ContextEvent
+from memorae_memory.schemas import CandidateEvent, ContextBuildResponse, ContextEvent
 
 
 def build_context(

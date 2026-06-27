@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from memorae_memory.events import load_events
 from memorae_memory.retrieval.bm25 import BM25Index
 from memorae_memory.retrieval.context_builder import build_context
-from memorae_memory.shared.schemas import (
+from memorae_memory.schemas import (
     CandidateEvent,
     ContextBuildResponse,
     EventRecord,

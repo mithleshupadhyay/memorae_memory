@@ -4,7 +4,7 @@ import re
 from collections import Counter
 from datetime import UTC, datetime, timedelta
 
-from memorae_memory.shared.schemas import EventRecord, EventSignal
+from memorae_memory.schemas import EventRecord, EventSignal
 from memorae_memory.time_utils import (
     SCENARIO_NOW,
     end_of_day_ist,

@@ -120,7 +120,8 @@ memorae/
 |   `-- memorae_mock_events.json
 |-- docs/
 |   |-- DESIGN.md
-|   `-- EVALUATION.md
+|   |-- EVALUATION.md
+|   `-- WALKTHROUGH.md
 |-- outputs/
 |   `-- example_run.json
 |-- src/
@@ -128,6 +129,9 @@ memorae/
 |       |-- engine.py
 |       |-- events.py
 |       |-- main.py
+|       |-- schemas/
+|       |   |-- __init__.py
+|       |   `-- models.py
 |       |-- signals.py
 |       |-- time_utils.py
 |       `-- retrieval/
@@ -215,6 +219,7 @@ See the generated example at `outputs/example_run.json`.
 
 - `docs/DESIGN.md` - retrieval architecture, memory architecture, context strategy, contradiction handling, failure modes, scaling plan, and optimization answer.
 - `docs/EVALUATION.md` - offline evals, online evals, regression tests, metrics, and human review rubric.
+- `docs/WALKTHROUGH.md` - plain-English end-to-end explanation of what the project is and how it works.
 - `outputs/example_run.json` - generated output for the required queries.
 
 ## Development

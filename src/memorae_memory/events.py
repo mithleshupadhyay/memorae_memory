@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from memorae_memory.shared.schemas import EventRecord
+from memorae_memory.schemas import EventRecord
 from memorae_memory.time_utils import parse_utc
 
 
