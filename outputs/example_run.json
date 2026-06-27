@@ -1,0 +1,1963 @@
+{
+  "scenario_time": "2026-04-13T03:00:00Z",
+  "dataset": "data/memorae_mock_events.json",
+  "responses": [
+    {
+      "query": "What should I focus on today?",
+      "intent": "today_focus",
+      "answer": "At Apr 13 08:30 IST, focus first on the UIE proposal and appendix. The current deadline is Monday Apr 13 15:00 IST, with Nina's review at 14:30 IST and ELT prep at 15:30 IST if she receives the appendix first. Use the Apr 13 working block to finish the appendix, resolve the retry-budget decision before making sub-2s retrieval claims, and close the external-safe diagram/data-room thread with Ravi.\n\nSecond, clear the hiring rubric. It was due Apr 12 and recruiting needs the senior/junior scoring split by noon so Apr 14/15 interview planning is not blocked.\n\nThird, protect near-term personal and operational commitments: Mom's cardiology report summary before the Apr 14 appointment, Southridge redlines before the Apr 14 negotiation now that clause 8 is unblocked, the staging incident prevention review/owner, apartment maintenance payment before Apr 14, and the dental slot confirmation by Apr 14 morning.",
+      "selected_context": [
+        {
+          "event_id": 168,
+          "timestamp": "2026-04-13T07:00:00Z",
+          "source": "calendar",
+          "content": "UIE appendix working block scheduled for Apr 13 12:30 IST.",
+          "score": 16.742,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T07:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "due or scheduled today",
+            "current-day calendar anchor",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 164,
+          "timestamp": "2026-04-13T03:05:00Z",
+          "source": "slack",
+          "content": "#finance Rhea: Hiring rubric was due Apr 12. Please send the senior/junior scoring split by noon so interviews can be scheduled.",
+          "score": 16.144,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-12T12:30:00Z",
+          "scheduled_at": "2026-04-12T12:30:00Z",
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "already overdue",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 166,
+          "timestamp": "2026-04-13T05:30:00Z",
+          "source": "calendar",
+          "content": "Ingest migration review Apr 13 11:00 IST. Decide retry budget before proposal claims are finalized.",
+          "score": 15.377,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T05:30:00Z",
+          "scheduled_at": "2026-04-13T05:30:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "due or scheduled today",
+            "current-day calendar anchor",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 108,
+          "timestamp": "2026-04-09T07:55:00Z",
+          "source": "slack",
+          "content": "#uieng Aarav: Ignore my earlier deadline note. UIE proposal is now due Monday Apr 13 15:00 IST, not Friday Apr 10.",
+          "score": 13.392,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T09:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "commitment/deadline language",
+            "update or correction",
+            "due or scheduled today",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 106,
+          "timestamp": "2026-04-09T05:30:00Z",
+          "source": "calendar",
+          "content": "Weekly hiring sync Apr 14 10:00 IST; candidate packets due before the meeting.",
+          "score": 13.054,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-14T04:30:00Z",
+          "scheduled_at": "2026-04-14T04:30:00Z",
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "commitment/deadline language",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 110,
+          "timestamp": "2026-04-09T08:35:00Z",
+          "source": "calendar",
+          "content": "Calendar update: UIE proposal review with Nina moved from Apr 10 16:00 to Apr 13 14:30 IST. Location: Northstar Meet.",
+          "score": 12.527,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T09:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "update or correction",
+            "due or scheduled today",
+            "current-day calendar anchor",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 169,
+          "timestamp": "2026-04-13T07:45:00Z",
+          "source": "slack",
+          "content": "#uieng Aarav: If Ravi does not confirm data-room access by EOD, ping him before Nina's proposal review.",
+          "score": 12.488,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T12:30:00Z",
+          "scheduled_at": "2026-04-13T12:30:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "due or scheduled today",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 78,
+          "timestamp": "2026-04-07T05:10:00Z",
+          "source": "calendar",
+          "content": "Apartment maintenance visit Apr 12 11:00 IST. Someone needs to be home.",
+          "score": 12.353,
+          "topics": [
+            "apartment_maintenance"
+          ],
+          "due_at": "2026-04-12T05:30:00Z",
+          "scheduled_at": "2026-04-12T05:30:00Z",
+          "why_selected": [
+            "topic match: apartment_maintenance",
+            "actionable language",
+            "commitment/deadline language",
+            "already overdue",
+            "high-impact topic for current day",
+            "near-term personal-admin consequence",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 170,
+          "timestamp": "2026-04-13T09:00:00Z",
+          "source": "calendar",
+          "content": "UIE proposal review with Nina Apr 13 14:30 IST. Location: Northstar Meet.",
+          "score": 12.042,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T09:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "due or scheduled today",
+            "current-day calendar anchor",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 167,
+          "timestamp": "2026-04-13T06:10:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Need to finish finance hiring rubric tonight; senior AI engineer loop needs system design + evals, junior needs debugging + data sense.",
+          "score": 11.819,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-13T16:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "due or scheduled today",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 77,
+          "timestamp": "2026-04-07T03:45:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Pay the apartment maintenance before Apr 14 or the late fee starts.",
+          "score": 11.73,
+          "topics": [
+            "apartment_maintenance"
+          ],
+          "due_at": "2026-04-14T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: apartment_maintenance",
+            "actionable language",
+            "commitment/deadline language",
+            "high-impact topic for current day",
+            "near-term personal-admin consequence",
+            "explicit consequence if missed",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 58,
+          "timestamp": "2026-04-05T10:15:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: I owe Mom the cardiology report summary before her Tuesday appointment.",
+          "score": 11.675,
+          "topics": [
+            "mom_cardiology"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: mom_cardiology",
+            "actionable language",
+            "commitment/deadline language",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 68,
+          "timestamp": "2026-04-06T05:40:00Z",
+          "source": "calendar",
+          "content": "Mom cardiology appointment Apr 14 09:00 IST; send report summary tonight.",
+          "score": 11.567,
+          "topics": [
+            "mom_cardiology"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-14T03:30:00Z",
+          "why_selected": [
+            "topic match: mom_cardiology",
+            "actionable language",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 94,
+          "timestamp": "2026-04-08T04:05:00Z",
+          "source": "gmail",
+          "content": "Dr. Shah's office: Please confirm the Apr 16 dental reschedule by Apr 14 10:00 IST.",
+          "score": 11.16,
+          "topics": [
+            "dentist"
+          ],
+          "due_at": "2026-04-14T04:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: dentist",
+            "actionable language",
+            "commitment/deadline language",
+            "high-impact topic for current day",
+            "near-term personal-admin consequence",
+            "explicit consequence if missed",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 89,
+          "timestamp": "2026-04-07T15:20:00Z",
+          "source": "slack",
+          "content": "#ops Dev: Please close the staging incident doc today. Postmortem is still blank under prevention.",
+          "score": 10.666,
+          "topics": [
+            "incident_doc"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: incident_doc",
+            "actionable language",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 55,
+          "timestamp": "2026-04-05T07:00:00Z",
+          "source": "gmail",
+          "content": "Rhea: Interview calibration moved to Apr 15 13:00 IST; I need the rubric before invites go out.",
+          "score": 10.374,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-15T07:30:00Z",
+          "scheduled_at": "2026-04-15T07:30:00Z",
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "update or correction",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 72,
+          "timestamp": "2026-04-06T13:15:00Z",
+          "source": "calendar",
+          "content": "Dentist reschedule hold Apr 16 08:00 IST, pending confirmation from Dr. Shah's office.",
+          "score": 10.349,
+          "topics": [
+            "dentist"
+          ],
+          "due_at": "2026-04-16T02:30:00Z",
+          "scheduled_at": "2026-04-16T02:30:00Z",
+          "why_selected": [
+            "topic match: dentist",
+            "actionable language",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 153,
+          "timestamp": "2026-04-12T05:15:00Z",
+          "source": "gmail",
+          "content": "Southridge procurement: Please send final SOW redlines before Apr 14 negotiation.",
+          "score": 10.31,
+          "topics": [
+            "southridge_sow"
+          ],
+          "due_at": "2026-04-14T12:30:00Z",
+          "scheduled_at": "2026-04-14T12:30:00Z",
+          "why_selected": [
+            "topic match: southridge_sow",
+            "actionable language",
+            "commitment/deadline language",
+            "high-impact topic for current day",
+            "lexical match to query/profile"
+          ]
+        }
+      ],
+      "reasoning": {
+        "why_selected": "Selected events due or scheduled on Apr 13 IST, overdue commitments that still affect today, and high-impact clusters with immediate dependencies.",
+        "clusters_used": {
+          "apartment_maintenance": {
+            "count": 2,
+            "event_ids": [
+              78,
+              77
+            ]
+          },
+          "dentist": {
+            "count": 2,
+            "event_ids": [
+              94,
+              72
+            ]
+          },
+          "hiring_rubric": {
+            "count": 4,
+            "event_ids": [
+              164,
+              106,
+              167,
+              55
+            ]
+          },
+          "incident_doc": {
+            "count": 1,
+            "event_ids": [
+              89
+            ]
+          },
+          "mom_cardiology": {
+            "count": 2,
+            "event_ids": [
+              58,
+              68
+            ]
+          },
+          "southridge_sow": {
+            "count": 1,
+            "event_ids": [
+              153
+            ]
+          },
+          "uie_proposal": {
+            "count": 6,
+            "event_ids": [
+              168,
+              166,
+              108,
+              110,
+              169,
+              170
+            ]
+          }
+        },
+        "why_ignored_or_downweighted": {
+          "policy": "Downweighted newsletters, receipts, OTPs, random-channel chatter, duplicated casual messages, and old facts superseded by newer updates. Future low-impact messages were not allowed to crowd out today's deadlines.",
+          "candidate_downrank_counts": {
+            "future non-calendar signal outside today's action window": 7,
+            "lexical-only event without today relevance": 1,
+            "non-calendar event after scenario time": 10,
+            "old overdue signal": 3,
+            "older background signal": 13,
+            "stale scheduled event": 4
+          },
+          "context_budget_ignored": {
+            "counts": {
+              "context_event_limit": 59,
+              "topic_cap": 3
+            },
+            "examples": {
+              "context_event_limit": [
+                0,
+                30,
+                141,
+                198,
+                165
+              ],
+              "topic_cap": [
+                10,
+                5,
+                16
+              ]
+            }
+          }
+        },
+        "contradiction_and_recency_resolution": [
+          "UIE Apr 10 deadline/review is treated as stale because Apr 9 updates move the deadline/review to Apr 13.",
+          "The old UIE procurement estimate is treated as stale because Apr 10 gives the updated $48.5k year-one estimate.",
+          "Ravi/data-room access is treated as waiting on external-safe diagrams, not procurement, because the Apr 12 update is newer.",
+          "Southridge clause 8 is no longer considered a blocker because the Apr 11 legal update says it is approved."
+        ],
+        "uncertainty": "Some Apr 13 non-calendar messages are timestamped after the scenario time; they are treated as future-facing signals, not proof the user had already seen them."
+      },
+      "diagnostics": {
+        "scenario_now_utc": "2026-04-13T03:00:00Z",
+        "scenario_now_ist": "Apr 13 08:30 IST",
+        "candidate_count": 80,
+        "selected_event_count": 18,
+        "selected_token_estimate": 271,
+        "ignored_summary": {
+          "counts": {
+            "context_event_limit": 59,
+            "topic_cap": 3
+          },
+          "examples": {
+            "context_event_limit": [
+              0,
+              30,
+              141,
+              198,
+              165
+            ],
+            "topic_cap": [
+              10,
+              5,
+              16
+            ]
+          }
+        },
+        "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."
+      }
+    },
+    {
+      "query": "What commitments am I at risk of missing?",
+      "intent": "risk_missing",
+      "answer": "Highest risk commitments:\n1. UIE proposal/appendix: due Apr 13 15:00 IST, with Nina review at 14:30 and ELT prep at 15:30. Risk comes from unfinished appendix items, retry-budget wording, and external-safe diagrams/data-room access.\n2. Hiring rubric: the senior/junior scoring split was due Apr 12 and is requested by noon Apr 13. This is already late and blocks recruiting logistics.\n3. Southridge SOW redlines: promised Friday and requested before the Apr 14 negotiation. The old blocker is stale because clause 8 is approved now.\n4. Mom cardiology report summary: owed before the Apr 14 09:00 IST appointment.\n5. Q2 launch and hiring logistics: the owner table/checklist and interview packets remain visible dependencies in the selected context.\n6. Personal admin due soon: dental reschedule confirmation by Apr 14 morning, apartment maintenance payment before Apr 14, and car insurance before Apr 15 18:00 IST.",
+      "selected_context": [
+        {
+          "event_id": 5,
+          "timestamp": "2026-04-01T08:35:00Z",
+          "source": "gmail",
+          "content": "Nina <nina@northstar.example>: Can you send the UIE proposal before Monday ELT? I need the risk section, not a teaser deck.",
+          "score": 20.308,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-06T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "missed or overdue deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 164,
+          "timestamp": "2026-04-13T03:05:00Z",
+          "source": "slack",
+          "content": "#finance Rhea: Hiring rubric was due Apr 12. Please send the senior/junior scoring split by noon so interviews can be scheduled.",
+          "score": 18.144,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-12T12:30:00Z",
+          "scheduled_at": "2026-04-12T12:30:00Z",
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "missed or overdue deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 142,
+          "timestamp": "2026-04-11T08:00:00Z",
+          "source": "gmail",
+          "content": "Northstar ELT Assistant: Please send Nina the UIE appendix at least one hour before ELT prep.",
+          "score": 17.272,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 153,
+          "timestamp": "2026-04-12T05:15:00Z",
+          "source": "gmail",
+          "content": "Southridge procurement: Please send final SOW redlines before Apr 14 negotiation.",
+          "score": 16.7,
+          "topics": [
+            "southridge_sow"
+          ],
+          "due_at": "2026-04-14T12:30:00Z",
+          "scheduled_at": "2026-04-14T12:30:00Z",
+          "why_selected": [
+            "topic match: southridge_sow",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline inside 36 hours",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 30,
+          "timestamp": "2026-04-03T04:30:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Draft reply to Southridge SOW. We promised redlines Friday and I still need Priya's clause 8 note.",
+          "score": 16.548,
+          "topics": [
+            "southridge_sow"
+          ],
+          "due_at": "2026-04-03T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: southridge_sow",
+            "actionable language",
+            "commitment/deadline language",
+            "missed or overdue deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 0,
+          "timestamp": "2026-04-01T04:45:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: I promised Nina the UIE proposal v3 by Friday Apr 10 15:00 IST; it needs migration timeline, rollout risks, and a rollback plan.",
+          "score": 15.289,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-10T09:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "missed or overdue deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 141,
+          "timestamp": "2026-04-11T07:15:00Z",
+          "source": "gmail",
+          "content": "Northstar ELT Assistant: Nina will discuss UIE risk at Apr 13 15:30 IST ELT prep if she receives the appendix first.",
+          "score": 15.22,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T10:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 58,
+          "timestamp": "2026-04-05T10:15:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: I owe Mom the cardiology report summary before her Tuesday appointment.",
+          "score": 14.464,
+          "topics": [
+            "mom_cardiology"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: mom_cardiology",
+            "actionable language",
+            "commitment/deadline language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 94,
+          "timestamp": "2026-04-08T04:05:00Z",
+          "source": "gmail",
+          "content": "Dr. Shah's office: Please confirm the Apr 16 dental reschedule by Apr 14 10:00 IST.",
+          "score": 14.257,
+          "topics": [
+            "dentist"
+          ],
+          "due_at": "2026-04-14T04:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: dentist",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline inside 36 hours",
+            "explicit consequence if missed",
+            "near-term personal-admin deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 67,
+          "timestamp": "2026-04-06T04:20:00Z",
+          "source": "slack",
+          "content": "#growth Sonal: Can you send the Q2 launch checklist by EOD? I need owners, not just phases.",
+          "score": 14.248,
+          "topics": [
+            "q2_launch"
+          ],
+          "due_at": "2026-04-06T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: q2_launch",
+            "actionable language",
+            "commitment/deadline language",
+            "missed or overdue deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 108,
+          "timestamp": "2026-04-09T07:55:00Z",
+          "source": "slack",
+          "content": "#uieng Aarav: Ignore my earlier deadline note. UIE proposal is now due Monday Apr 13 15:00 IST, not Friday Apr 10.",
+          "score": 14.167,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T09:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "commitment/deadline language",
+            "update or correction",
+            "deadline inside 36 hours",
+            "latest deadline correction",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 169,
+          "timestamp": "2026-04-13T07:45:00Z",
+          "source": "slack",
+          "content": "#uieng Aarav: If Ravi does not confirm data-room access by EOD, ping him before Nina's proposal review.",
+          "score": 13.885,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T12:30:00Z",
+          "scheduled_at": "2026-04-13T12:30:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline inside 36 hours",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 71,
+          "timestamp": "2026-04-06T11:45:00Z",
+          "source": "gmail",
+          "content": "Legal Desk: Contract renewal for VectorDB Pro requires owner confirmation by Apr 17.",
+          "score": 12.656,
+          "topics": [
+            "vendor_renewal"
+          ],
+          "due_at": "2026-04-17T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: vendor_renewal",
+            "actionable language",
+            "commitment/deadline language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 68,
+          "timestamp": "2026-04-06T05:40:00Z",
+          "source": "calendar",
+          "content": "Mom cardiology appointment Apr 14 09:00 IST; send report summary tonight.",
+          "score": 12.352,
+          "topics": [
+            "mom_cardiology"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-14T03:30:00Z",
+          "why_selected": [
+            "topic match: mom_cardiology",
+            "actionable language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 83,
+          "timestamp": "2026-04-07T08:25:00Z",
+          "source": "gmail",
+          "content": "Rhea: I need the senior/junior scoring split by Apr 12 so recruiting can schedule interviews next week.",
+          "score": 12.208,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-12T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "missed or overdue deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 33,
+          "timestamp": "2026-04-03T08:10:00Z",
+          "source": "reminder",
+          "content": "Renew car insurance before Apr 15 18:00 IST. Portal locks renewals during overnight maintenance.",
+          "score": 12.046,
+          "topics": [
+            "car_insurance"
+          ],
+          "due_at": "2026-04-15T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: car_insurance",
+            "actionable language",
+            "commitment/deadline language",
+            "explicit consequence if missed",
+            "near-term personal-admin deadline",
+            "dated reminder inside 72 hours",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 55,
+          "timestamp": "2026-04-05T07:00:00Z",
+          "source": "gmail",
+          "content": "Rhea: Interview calibration moved to Apr 15 13:00 IST; I need the rubric before invites go out.",
+          "score": 11.988,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-15T07:30:00Z",
+          "scheduled_at": "2026-04-15T07:30:00Z",
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "update or correction",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 77,
+          "timestamp": "2026-04-07T03:45:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Pay the apartment maintenance before Apr 14 or the late fee starts.",
+          "score": 11.606,
+          "topics": [
+            "apartment_maintenance"
+          ],
+          "due_at": "2026-04-14T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: apartment_maintenance",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline inside 36 hours",
+            "explicit consequence if missed",
+            "near-term personal-admin deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 181,
+          "timestamp": "2026-04-14T04:00:00Z",
+          "source": "gmail",
+          "content": "Dr. Shah's office: If you cannot confirm by Apr 14 morning, we will release the Apr 16 dental slot.",
+          "score": 11.484,
+          "topics": [
+            "dentist"
+          ],
+          "due_at": "2026-04-14T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: dentist",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline inside 36 hours",
+            "explicit consequence if missed",
+            "near-term personal-admin deadline",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 145,
+          "timestamp": "2026-04-11T11:45:00Z",
+          "source": "slack",
+          "content": "#product Maya: Need the empty-state copy choices by Tuesday morning or I will pick the safest default.",
+          "score": 11.218,
+          "topics": [],
+          "due_at": "2026-04-14T04:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "actionable language",
+            "commitment/deadline language",
+            "deadline inside 36 hours",
+            "lexical match to query/profile"
+          ]
+        }
+      ],
+      "reasoning": {
+        "why_selected": "Selected explicit commitments, due dates, reminders, nudges, and updates that show a deadline is close, missed, or newly unblocked.",
+        "clusters_used": {
+          "apartment_maintenance": {
+            "count": 1,
+            "event_ids": [
+              77
+            ]
+          },
+          "car_insurance": {
+            "count": 1,
+            "event_ids": [
+              33
+            ]
+          },
+          "dentist": {
+            "count": 2,
+            "event_ids": [
+              94,
+              181
+            ]
+          },
+          "hiring_rubric": {
+            "count": 3,
+            "event_ids": [
+              164,
+              83,
+              55
+            ]
+          },
+          "mom_cardiology": {
+            "count": 2,
+            "event_ids": [
+              58,
+              68
+            ]
+          },
+          "q2_launch": {
+            "count": 1,
+            "event_ids": [
+              67
+            ]
+          },
+          "southridge_sow": {
+            "count": 2,
+            "event_ids": [
+              153,
+              30
+            ]
+          },
+          "uie_proposal": {
+            "count": 6,
+            "event_ids": [
+              5,
+              142,
+              0,
+              141,
+              108,
+              169
+            ]
+          },
+          "unclustered": {
+            "count": 1,
+            "event_ids": [
+              145
+            ]
+          },
+          "vendor_renewal": {
+            "count": 1,
+            "event_ids": [
+              71
+            ]
+          }
+        },
+        "why_ignored_or_downweighted": {
+          "policy": "Downweighted newsletters, receipts, OTPs, random-channel chatter, duplicated casual messages, and old facts superseded by newer updates.",
+          "candidate_downrank_counts": {
+            "low-signal/noisy event": 2,
+            "no explicit commitment or deadline": 18,
+            "non-calendar event after scenario time": 12,
+            "older deadline superseded by newer UIE update": 1
+          },
+          "context_budget_ignored": {
+            "counts": {
+              "context_event_limit": 57,
+              "topic_cap": 3
+            },
+            "examples": {
+              "context_event_limit": [
+                106,
+                60,
+                16,
+                78,
+                198
+              ],
+              "topic_cap": [
+                10,
+                166,
+                24
+              ]
+            }
+          }
+        },
+        "contradiction_and_recency_resolution": [
+          "UIE Apr 10 deadline/review is treated as stale because Apr 9 updates move the deadline/review to Apr 13.",
+          "The old UIE procurement estimate is treated as stale because Apr 10 gives the updated $48.5k year-one estimate.",
+          "Ravi/data-room access is treated as waiting on external-safe diagrams, not procurement, because the Apr 12 update is newer.",
+          "Southridge clause 8 is no longer considered a blocker because the Apr 11 legal update says it is approved."
+        ],
+        "uncertainty": "The stream has asks and updates but no canonical task-completion labels, so unresolved status is inferred from the absence of newer completion evidence."
+      },
+      "diagnostics": {
+        "scenario_now_utc": "2026-04-13T03:00:00Z",
+        "scenario_now_ist": "Apr 13 08:30 IST",
+        "candidate_count": 80,
+        "selected_event_count": 20,
+        "selected_token_estimate": 334,
+        "ignored_summary": {
+          "counts": {
+            "context_event_limit": 57,
+            "topic_cap": 3
+          },
+          "examples": {
+            "context_event_limit": [
+              106,
+              60,
+              16,
+              78,
+              198
+            ],
+            "topic_cap": [
+              10,
+              166,
+              24
+            ]
+          }
+        },
+        "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."
+      }
+    },
+    {
+      "query": "What have I been procrastinating on?",
+      "intent": "procrastination",
+      "answer": "The strongest procrastination pattern is repeated concrete asks without a completion event. The hiring rubric has Apr 7, Apr 9, and Apr 13 signals and is already past the Apr 12 due date. Southridge redlines were promised Friday, nudged on Apr 10, and still matter for Apr 14 now that legal is no longer blocking them. UIE diagrams and data-room access recur from Apr 5 through Apr 12, with Ravi waiting on external-safe diagrams. The staging incident doc was due Apr 7, later had draft bullets, but still needs owner/prevention closure. Admin export proof started as an Apr 2 nudge and reappears after the demo with screenshots and role-permission notes.\n\nPersonal-admin procrastination is also visible: car insurance is described as 'before it slips again,' school/payment upload tasks are repeated, and Mom's cardiology report summary has been open since Apr 5.",
+      "selected_context": [
+        {
+          "event_id": 29,
+          "timestamp": "2026-04-03T02:09:00Z",
+          "source": "gmail",
+          "content": "Anika: Friendly nudge on the redlines.",
+          "score": 27.375,
+          "topics": [
+            "southridge_sow"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: southridge_sow",
+            "actionable language",
+            "repeated nudge or slipping language",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 15,
+          "timestamp": "2026-04-02T03:39:00Z",
+          "source": "gmail",
+          "content": "Anika: Friendly nudge on the export screenshots.",
+          "score": 26.733,
+          "topics": [
+            "admin_export"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: admin_export",
+            "actionable language",
+            "repeated nudge or slipping language",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 92,
+          "timestamp": "2026-04-08T01:04:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Need to handle school upload before it slips again.",
+          "score": 23.3,
+          "topics": [
+            "school_logistics"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: school_logistics",
+            "actionable language",
+            "commitment/deadline language",
+            "repeated nudge or slipping language",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 124,
+          "timestamp": "2026-04-10T04:10:00Z",
+          "source": "gmail",
+          "content": "Priya: Friendly nudge on the Southridge redlines you said you would send this week.",
+          "score": 21.533,
+          "topics": [
+            "southridge_sow"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: southridge_sow",
+            "actionable language",
+            "repeated nudge or slipping language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 30,
+          "timestamp": "2026-04-03T04:30:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Draft reply to Southridge SOW. We promised redlines Friday and I still need Priya's clause 8 note.",
+          "score": 20.433,
+          "topics": [
+            "southridge_sow"
+          ],
+          "due_at": "2026-04-03T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: southridge_sow",
+            "actionable language",
+            "commitment/deadline language",
+            "repeated nudge or slipping language",
+            "deadline has passed",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 60,
+          "timestamp": "2026-04-05T12:03:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Need to handle insurance renewal before it slips again.",
+          "score": 19.794,
+          "topics": [
+            "car_insurance"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: car_insurance",
+            "actionable language",
+            "commitment/deadline language",
+            "repeated nudge or slipping language",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 10,
+          "timestamp": "2026-04-01T14:30:00Z",
+          "source": "slack",
+          "content": "#uieng Maya: Aarav, I still need your feedback on onboarding empty states before I cut the prototype Wednesday.",
+          "score": 17.873,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-01T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "repeated nudge or slipping language",
+            "deadline has passed",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 130,
+          "timestamp": "2026-04-10T11:20:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: If Cedric hasn't sent final procurement numbers by Thursday noon, nudge him again.",
+          "score": 13.432,
+          "topics": [],
+          "due_at": "2026-04-16T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "actionable language",
+            "commitment/deadline language",
+            "repeated nudge or slipping language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 112,
+          "timestamp": "2026-04-09T10:20:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Need to send the school payment receipt before I forget again.",
+          "score": 12.788,
+          "topics": [
+            "school_logistics"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: school_logistics",
+            "actionable language",
+            "commitment/deadline language",
+            "repeated nudge or slipping language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 175,
+          "timestamp": "2026-04-13T12:05:00Z",
+          "source": "slack",
+          "content": "#ops Dev: Incident doc is almost done, but prevention owner and rollback drill date still need you.",
+          "score": 12.039,
+          "topics": [
+            "incident_doc"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: incident_doc",
+            "actionable language",
+            "repeated nudge or slipping language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 24,
+          "timestamp": "2026-04-02T11:05:00Z",
+          "source": "gmail",
+          "content": "Cedric <cedric@northstar.example>: Procurement numbers for UIE are due Thursday; tell me if you need license assumptions.",
+          "score": 11.322,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-02T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline has passed",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 164,
+          "timestamp": "2026-04-13T03:05:00Z",
+          "source": "slack",
+          "content": "#finance Rhea: Hiring rubric was due Apr 12. Please send the senior/junior scoring split by noon so interviews can be scheduled.",
+          "score": 11.141,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-12T12:30:00Z",
+          "scheduled_at": "2026-04-12T12:30:00Z",
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline has passed",
+            "repeated overdue hiring-rubric ask",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 83,
+          "timestamp": "2026-04-07T08:25:00Z",
+          "source": "gmail",
+          "content": "Rhea: I need the senior/junior scoring split by Apr 12 so recruiting can schedule interviews next week.",
+          "score": 11.103,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-12T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline has passed",
+            "repeated overdue hiring-rubric ask",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 0,
+          "timestamp": "2026-04-01T04:45:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: I promised Nina the UIE proposal v3 by Friday Apr 10 15:00 IST; it needs migration timeline, rollout risks, and a rollback plan.",
+          "score": 10.906,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-10T09:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "deadline has passed",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 55,
+          "timestamp": "2026-04-05T07:00:00Z",
+          "source": "gmail",
+          "content": "Rhea: Interview calibration moved to Apr 15 13:00 IST; I need the rubric before invites go out.",
+          "score": 10.515,
+          "topics": [
+            "hiring_rubric"
+          ],
+          "due_at": "2026-04-15T07:30:00Z",
+          "scheduled_at": "2026-04-15T07:30:00Z",
+          "why_selected": [
+            "topic match: hiring_rubric",
+            "actionable language",
+            "commitment/deadline language",
+            "update or correction",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 180,
+          "timestamp": "2026-04-14T03:45:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: Pari's form says Apr 18, but school wants upload by Apr 16 if we need the bus route changed.",
+          "score": 10.251,
+          "topics": [
+            "school_logistics"
+          ],
+          "due_at": "2026-04-16T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: school_logistics",
+            "actionable language",
+            "commitment/deadline language",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 152,
+          "timestamp": "2026-04-12T04:20:00Z",
+          "source": "gmail",
+          "content": "Ravi: Data room access is waiting on external-safe diagrams, not on procurement anymore.",
+          "score": 10.02,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "update or correction",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 42,
+          "timestamp": "2026-04-04T03:55:00Z",
+          "source": "whatsapp",
+          "content": "Pari's school bus-change form is due Apr 16; Karan has the immunization scan.",
+          "score": 9.984,
+          "topics": [
+            "school_logistics"
+          ],
+          "due_at": "2026-04-16T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: school_logistics",
+            "commitment/deadline language",
+            "action has been open for several days",
+            "lexical match to query/profile"
+          ]
+        }
+      ],
+      "reasoning": {
+        "why_selected": "Selected repeated asks, stale open actions, friendly nudges, 'still need' language, and commitments whose due dates passed without completion evidence.",
+        "clusters_used": {
+          "admin_export": {
+            "count": 1,
+            "event_ids": [
+              15
+            ]
+          },
+          "car_insurance": {
+            "count": 1,
+            "event_ids": [
+              60
+            ]
+          },
+          "hiring_rubric": {
+            "count": 3,
+            "event_ids": [
+              164,
+              83,
+              55
+            ]
+          },
+          "incident_doc": {
+            "count": 1,
+            "event_ids": [
+              175
+            ]
+          },
+          "school_logistics": {
+            "count": 4,
+            "event_ids": [
+              92,
+              112,
+              180,
+              42
+            ]
+          },
+          "southridge_sow": {
+            "count": 3,
+            "event_ids": [
+              29,
+              124,
+              30
+            ]
+          },
+          "uie_proposal": {
+            "count": 4,
+            "event_ids": [
+              10,
+              24,
+              0,
+              152
+            ]
+          },
+          "unclustered": {
+            "count": 1,
+            "event_ids": [
+              130
+            ]
+          }
+        },
+        "why_ignored_or_downweighted": {
+          "policy": "Downweighted newsletters, receipts, OTPs, random-channel chatter, duplicated casual messages, and old facts superseded by newer updates.",
+          "candidate_downrank_counts": {
+            "blocker resolved rather than procrastinated": 1,
+            "low-signal/noisy event": 3,
+            "non-calendar event after scenario time": 9
+          },
+          "context_budget_ignored": {
+            "counts": {
+              "context_event_limit": 62
+            },
+            "examples": {
+              "context_event_limit": [
+                5,
+                51,
+                89,
+                67,
+                53
+              ]
+            }
+          }
+        },
+        "contradiction_and_recency_resolution": [
+          "UIE Apr 10 deadline/review is treated as stale because Apr 9 updates move the deadline/review to Apr 13.",
+          "The old UIE procurement estimate is treated as stale because Apr 10 gives the updated $48.5k year-one estimate.",
+          "Ravi/data-room access is treated as waiting on external-safe diagrams, not procurement, because the Apr 12 update is newer.",
+          "Southridge clause 8 is no longer considered a blocker because the Apr 11 legal update says it is approved."
+        ],
+        "uncertainty": "The stream has asks and updates but no canonical task-completion labels, so unresolved status is inferred from the absence of newer completion evidence."
+      },
+      "diagnostics": {
+        "scenario_now_utc": "2026-04-13T03:00:00Z",
+        "scenario_now_ist": "Apr 13 08:30 IST",
+        "candidate_count": 80,
+        "selected_event_count": 18,
+        "selected_token_estimate": 267,
+        "ignored_summary": {
+          "counts": {
+            "context_event_limit": 62
+          },
+          "examples": {
+            "context_event_limit": [
+              5,
+              51,
+              89,
+              67,
+              53
+            ]
+          }
+        },
+        "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."
+      }
+    },
+    {
+      "query": "Summarize everything related to the UIE proposal.",
+      "intent": "uie_proposal",
+      "answer": "UIE proposal summary: the proposal should be positioned externally as Unified Intelligence Engine. The latest deadline overrides the original Apr 10 plan: it is now due Monday Apr 13 15:00 IST, with Nina's review at 14:30 IST. Nina wants a crisp one-page decision memo, not a teaser deck or architecture-heavy document: recommendation first, tradeoffs second, risk/rollout/decision owner early.\n\nRequired content includes migration timeline, rollout risks, rollback plan, risk section, data retention answer, SOC2 wording, procurement estimate, and failure modes. Use the updated year-one licensing estimate of $48.5k, not the old $42k. The retry-budget decision must be written up before claiming sub-2s retrieval.\n\nOpen dependencies are external-safe diagrams and Ravi/data-room access. Ravi can approve access, but the latest signal says access is waiting on external-safe diagrams, not procurement. Ask via Nina's thread if possible. The Apr 12 work block was cancelled, but Apr 13 has an appendix working block and an ingest migration review.\n\nAfter delivery, create an internal FAQ from Nina's objections. Uncertainty: the stream does not contain a completion or sent-confirmation event for the final proposal.",
+      "selected_context": [
+        {
+          "event_id": 125,
+          "timestamp": "2026-04-10T05:25:00Z",
+          "source": "gmail",
+          "content": "Nina: One correction: call it Unified Intelligence Engine in the external proposal. UIE is fine internally.",
+          "score": 32.27,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "update or correction",
+            "UIE proposal cluster",
+            "high-value UIE update",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 17,
+          "timestamp": "2026-04-02T04:15:00Z",
+          "source": "notion",
+          "content": "UIE appendix still missing data retention answer, SOC2 wording, and procurement estimate.",
+          "score": 27.309,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 140,
+          "timestamp": "2026-04-11T05:35:00Z",
+          "source": "notion",
+          "content": "Add failure modes to the UIE proposal before Nina review.",
+          "score": 25.123,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 0,
+          "timestamp": "2026-04-01T04:45:00Z",
+          "source": "whatsapp",
+          "content": "Aarav: I promised Nina the UIE proposal v3 by Friday Apr 10 15:00 IST; it needs migration timeline, rollout risks, and a rollback plan.",
+          "score": 24.71,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-10T09:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 5,
+          "timestamp": "2026-04-01T08:35:00Z",
+          "source": "gmail",
+          "content": "Nina <nina@northstar.example>: Can you send the UIE proposal before Monday ELT? I need the risk section, not a teaser deck.",
+          "score": 23.944,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-06T12:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 142,
+          "timestamp": "2026-04-11T08:00:00Z",
+          "source": "gmail",
+          "content": "Northstar ELT Assistant: Please send Nina the UIE appendix at least one hour before ELT prep.",
+          "score": 22.981,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "UIE proposal cluster",
+            "high-value UIE update",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 141,
+          "timestamp": "2026-04-11T07:15:00Z",
+          "source": "gmail",
+          "content": "Northstar ELT Assistant: Nina will discuss UIE risk at Apr 13 15:30 IST ELT prep if she receives the appendix first.",
+          "score": 22.495,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T10:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 110,
+          "timestamp": "2026-04-09T08:35:00Z",
+          "source": "calendar",
+          "content": "Calendar update: UIE proposal review with Nina moved from Apr 10 16:00 to Apr 13 14:30 IST. Location: Northstar Meet.",
+          "score": 21.312,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T09:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "update or correction",
+            "UIE proposal cluster",
+            "high-value UIE update",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 170,
+          "timestamp": "2026-04-13T09:00:00Z",
+          "source": "calendar",
+          "content": "UIE proposal review with Nina Apr 13 14:30 IST. Location: Northstar Meet.",
+          "score": 20.517,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T09:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 158,
+          "timestamp": "2026-04-12T11:30:00Z",
+          "source": "notion",
+          "content": "After UIE proposal delivery, create an internal FAQ from the objections Nina raises.",
+          "score": 18.691,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 166,
+          "timestamp": "2026-04-13T05:30:00Z",
+          "source": "calendar",
+          "content": "Ingest migration review Apr 13 11:00 IST. Decide retry budget before proposal claims are finalized.",
+          "score": 18.368,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T05:30:00Z",
+          "scheduled_at": "2026-04-13T05:30:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 169,
+          "timestamp": "2026-04-13T07:45:00Z",
+          "source": "slack",
+          "content": "#uieng Aarav: If Ravi does not confirm data-room access by EOD, ping him before Nina's proposal review.",
+          "score": 18.022,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T12:30:00Z",
+          "scheduled_at": "2026-04-13T12:30:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 119,
+          "timestamp": "2026-04-09T15:10:00Z",
+          "source": "slack",
+          "content": "#infra Dev: Retry-budget decision needs to be written up before we claim sub-2s retrieval in the proposal.",
+          "score": 17.94,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "commitment/deadline language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 53,
+          "timestamp": "2026-04-05T04:05:00Z",
+          "source": "gmail",
+          "content": "Ravi <ravi@northstar.example>: I can approve data-room access once Aarav confirms which UIE diagrams are external-safe.",
+          "score": 16.887,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 108,
+          "timestamp": "2026-04-09T07:55:00Z",
+          "source": "slack",
+          "content": "#uieng Aarav: Ignore my earlier deadline note. UIE proposal is now due Monday Apr 13 15:00 IST, not Friday Apr 10.",
+          "score": 16.221,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": "2026-04-13T09:30:00Z",
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "commitment/deadline language",
+            "update or correction",
+            "UIE proposal cluster",
+            "high-value UIE update",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 56,
+          "timestamp": "2026-04-05T08:09:00Z",
+          "source": "notion",
+          "content": "Confirm which UIE diagrams are external-safe.",
+          "score": 15.874,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "actionable language",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 46,
+          "timestamp": "2026-04-04T06:30:00Z",
+          "source": "gmail",
+          "content": "Aarav to Nina: I will keep UIE crisp; you said you prefer a recommendation plus the two strongest risks.",
+          "score": 14.952,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "UIE proposal cluster",
+            "high-value UIE update",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 128,
+          "timestamp": "2026-04-10T09:40:00Z",
+          "source": "slack",
+          "content": "#infra Dev: Ingest migration review moved to Monday 11:00 IST because Arun is out Tuesday.",
+          "score": 14.949,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T12:30:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "update or correction",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 16,
+          "timestamp": "2026-04-02T03:50:00Z",
+          "source": "calendar",
+          "content": "Focus block Apr 11 18:00 IST for UIE risk table.",
+          "score": 14.739,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-11T12:30:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 152,
+          "timestamp": "2026-04-12T04:20:00Z",
+          "source": "gmail",
+          "content": "Ravi: Data room access is waiting on external-safe diagrams, not on procurement anymore.",
+          "score": 14.626,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "update or correction",
+            "UIE proposal cluster",
+            "high-value UIE update",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 126,
+          "timestamp": "2026-04-10T06:30:00Z",
+          "source": "gmail",
+          "content": "Cedric: Do not use the old $42k procurement estimate. Updated UIE licensing estimate is $48.5k for year one.",
+          "score": 14.502,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": null,
+          "why_selected": [
+            "topic match: uie_proposal",
+            "update or correction",
+            "UIE proposal cluster",
+            "high-value UIE update",
+            "lexical match to query/profile"
+          ]
+        },
+        {
+          "event_id": 168,
+          "timestamp": "2026-04-13T07:00:00Z",
+          "source": "calendar",
+          "content": "UIE appendix working block scheduled for Apr 13 12:30 IST.",
+          "score": 14.418,
+          "topics": [
+            "uie_proposal"
+          ],
+          "due_at": null,
+          "scheduled_at": "2026-04-13T07:00:00Z",
+          "why_selected": [
+            "topic match: uie_proposal",
+            "UIE proposal cluster",
+            "lexical match to query/profile"
+          ]
+        }
+      ],
+      "reasoning": {
+        "why_selected": "Selected events with UIE/proposal topic evidence, latest deadline/review updates, Nina/Ravi dependencies, appendix requirements, and proposal-style preferences.",
+        "clusters_used": {
+          "uie_proposal": {
+            "count": 22,
+            "event_ids": [
+              125,
+              17,
+              140,
+              0,
+              5,
+              142,
+              141,
+              110,
+              170,
+              158
+            ]
+          }
+        },
+        "why_ignored_or_downweighted": {
+          "policy": "Downweighted newsletters, receipts, OTPs, random-channel chatter, duplicated casual messages, and old facts superseded by newer updates. Non-UIE workstreams were ignored unless they affected proposal timing.",
+          "candidate_downrank_counts": {
+            "low-signal/noisy event": 1,
+            "non-calendar event after scenario time": 12,
+            "not part of UIE proposal cluster": 44
+          },
+          "context_budget_ignored": {
+            "counts": {
+              "context_event_limit": 58
+            },
+            "examples": {
+              "context_event_limit": [
+                24,
+                27,
+                165,
+                51,
+                3
+              ]
+            }
+          }
+        },
+        "contradiction_and_recency_resolution": [
+          "UIE Apr 10 deadline/review is treated as stale because Apr 9 updates move the deadline/review to Apr 13.",
+          "The old UIE procurement estimate is treated as stale because Apr 10 gives the updated $48.5k year-one estimate.",
+          "Ravi/data-room access is treated as waiting on external-safe diagrams, not procurement, because the Apr 12 update is newer.",
+          "Southridge clause 8 is no longer considered a blocker because the Apr 11 legal update says it is approved.",
+          "The cancelled Apr 12 UIE work block is ignored as a scheduling option; the Apr 13 appendix block remains relevant."
+        ],
+        "uncertainty": "No event confirms that the proposal or appendix was sent, so completion status is unknown."
+      },
+      "diagnostics": {
+        "scenario_now_utc": "2026-04-13T03:00:00Z",
+        "scenario_now_ist": "Apr 13 08:30 IST",
+        "candidate_count": 80,
+        "selected_event_count": 22,
+        "selected_token_estimate": 340,
+        "ignored_summary": {
+          "counts": {
+            "context_event_limit": 58
+          },
+          "examples": {
+            "context_event_limit": [
+              24,
+              27,
+              165,
+              51,
+              3
+            ]
+          }
+        },
+        "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."
+      }
+    }
+  ]
+}

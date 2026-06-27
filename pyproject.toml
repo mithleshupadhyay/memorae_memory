@@ -1,0 +1,24 @@
+[project]
+name = "memorae-memory"
+version = "0.1.0"
+description = "Inspectable personal-memory retrieval and answering engine for the Memorae AI Engineer assessment"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+  { name = "Mithlesh Upadhyay", email = "mithleshupadhyay515@gmail.com" }
+]
+dependencies = []
+
+[project.scripts]
+memorae-memory = "memorae_memory.main:main"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
