@@ -203,6 +203,9 @@ Current implemented tests verify:
 - UIE summary keeps key update events in selected context.
 - Today focus avoids generic focus blocks.
 - Risk query keeps due-soon personal deadlines.
+- Broad risk queries do not accidentally infer a topic from intent words such as "risk".
+- Unseen topic-summary queries, such as Southridge SOW status, use the inferred topic cluster.
+- Topic-specific risk queries, such as the dental slot, can narrow ranking to the matching topic.
 
 Run them with:
 

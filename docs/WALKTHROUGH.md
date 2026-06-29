@@ -205,16 +205,18 @@ File:
 src/memorae_memory/engine.py
 ```
 
-The query is classified into an intent.
+The query is converted into a query profile.
 
 ```mermaid
 flowchart TD
-    A[User query] --> B{Intent?}
-    B --> C[today_focus]
-    B --> D[risk_missing]
-    B --> E[procrastination]
-    B --> F[uie_proposal]
-    B --> G[generic]
+    A[User query] --> B[Filter query terms]
+    B --> C{Broad intent?}
+    B --> D[Infer topic cluster]
+    C --> E[today_focus]
+    C --> F[risk_missing]
+    C --> G[procrastination]
+    C --> H[topic_summary]
+    C --> I[generic]
 ```
 
 Examples:
@@ -224,15 +226,16 @@ Examples:
 | What should I focus on today? | `today_focus` |
 | What commitments am I at risk of missing? | `risk_missing` |
 | What have I been procrastinating on? | `procrastination` |
-| Summarize everything related to the UIE proposal. | `uie_proposal` |
+| Summarize everything related to the UIE proposal. | `topic_summary` with inferred topic `uie_proposal` |
+| Summarize Southridge SOW status. | `topic_summary` with inferred topic `southridge_sow` |
 
-The intent matters because each question needs different ranking logic.
+The intent matters because each question needs different ranking features, but the topic comes from query/event overlap rather than from a fixed list of assessment questions.
 
 For example:
 
 - "Today focus" should boost today's calendar and urgent deadlines.
 - "Procrastination" should boost repeated nudges and old unfinished asks.
-- "UIE proposal" should boost all UIE-related records.
+- "Summarize Southridge SOW status" should boost Southridge records even though it is not one of the required assessment queries.
 
 ### Step 4: Retrieve Candidate Events
 
@@ -250,12 +253,14 @@ The retriever combines two things:
 
 ```mermaid
 flowchart TD
-    A[Query] --> B[Expanded query terms]
+    A[Query profile] --> B[Filtered query terms]
     B --> C[BM25 keyword score]
-    D[Event signals] --> E[Signal score]
-    C --> F[Final event score]
-    E --> F
-    F --> G[Ranked candidate events]
+    A --> D[Inferred topic constraints]
+    E[Event signals] --> F[Signal score]
+    D --> F
+    C --> G[Final event score]
+    F --> G
+    G --> H[Ranked candidate events]
 ```
 
 Why both are needed:
@@ -315,7 +320,7 @@ File:
 src/memorae_memory/engine.py
 ```
 
-The current implementation uses deterministic templates.
+The current implementation uses deterministic extractive synthesis.
 
 That means:
 
@@ -324,7 +329,7 @@ That means:
 - The reviewer gets the same answer every run.
 - The output is easy to inspect.
 
-The answer is still grounded in the selected context.
+The answer is assembled from selected context rather than from a fixed answer body. Summaries are split into updates, deadlines/calendar anchors, open asks/dependencies, and preferences/background. Focus/risk/procrastination answers are grouped by ranked topic.
 
 ### Step 7: Explain Reasoning
 

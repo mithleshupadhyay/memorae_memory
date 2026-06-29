@@ -12,7 +12,7 @@ class QueryIntent(StrEnum):
     TODAY_FOCUS = "today_focus"
     RISK_MISSING = "risk_missing"
     PROCRASTINATION = "procrastination"
-    UIE_PROPOSAL = "uie_proposal"
+    TOPIC_SUMMARY = "topic_summary"
     GENERIC = "generic"
 
 

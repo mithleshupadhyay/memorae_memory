@@ -72,12 +72,12 @@ poetry run memorae-memory \
 
 The engine answers the four required assessment queries:
 
-| Query | Intent |
+| Query | Runtime intent |
 | --- | --- |
 | `What should I focus on today?` | Prioritize urgent work and personal commitments for Apr 13 IST. |
 | `What commitments am I at risk of missing?` | Find overdue or near-deadline commitments. |
 | `What have I been procrastinating on?` | Detect repeated nudges, stale asks, and slipping tasks. |
-| `Summarize everything related to the UIE proposal.` | Build a complete UIE proposal cluster summary. |
+| `Summarize everything related to the UIE proposal.` | Infer the UIE topic cluster and summarize relevant updates, deadlines, dependencies, and preferences. |
 
 Default scenario time:
 
@@ -89,13 +89,14 @@ Default scenario time:
 
 - Runtime signal extraction from raw events without modifying the dataset.
 - Topic clustering for UIE proposal, hiring rubric, Southridge SOW, personal admin, and other workstreams.
+- Query-time topic inference from overlap between the user's words and event-derived cluster terms.
 - IST-aware deadline and calendar parsing.
-- Hybrid retrieval using dependency-free BM25 plus urgency, commitment, update, and noise scoring.
+- Hybrid retrieval using dependency-free BM25 plus urgency, commitment, update, recency, repeated-ask, dependency, and noise scoring.
 - Selective context construction with event limits, token estimates, deduping, and topic caps.
 - Stale fact and contradiction handling.
 - Inspectable JSON output with selected context, reasoning, diagnostics, and ignored-context summaries.
 - Offline deterministic execution with no external API dependency.
-- Regression tests for retrieval, signal extraction, context building, and required query behavior.
+- Regression tests for retrieval, signal extraction, context building, required query behavior, and unseen topic queries.
 
 ## Architecture
 
@@ -108,7 +109,7 @@ Default scenario time:
                                                          v
 +------------------+    +------------------+    +------------------+
 | JSON Response    | <- | Answer Generator | <- | Context Builder  |
-| answer+reasoning |    | intent templates |    | bounded context  |
+| answer+reasoning |    | extractive synth |    | bounded context  |
 +------------------+    +------------------+    +------------------+
 ```
 
@@ -152,9 +153,10 @@ memorae/
 For each query, the engine performs the required four-step flow:
 
 1. Source and signal selection
-   - Classifies the query intent.
+   - Classifies broad query intent such as focus, risk, procrastination, summary, or generic.
+   - Infers topic constraints from query/event cluster overlap when the query names a workstream.
    - Extracts runtime signals from the raw stream.
-   - Scores candidate events using lexical relevance, urgency, topics, commitments, updates, and noise penalties.
+   - Scores candidate events using filtered lexical relevance, urgency, topics, commitments, updates, recency, repeated asks, dependencies, and noise penalties.
 
 2. Context construction
    - Builds a bounded context instead of passing every event.
@@ -163,7 +165,7 @@ For each query, the engine performs the required four-step flow:
    - Reports what was ignored or downweighted.
 
 3. Answer generation
-   - Produces a specific, time-aware answer.
+   - Produces an extractive, time-aware answer from selected evidence.
    - Grounds the answer in selected event IDs.
    - States uncertainty when completion evidence is missing.
 
@@ -205,6 +207,11 @@ The CLI returns JSON with one response per query:
     }
   ],
   "reasoning": {
+    "query_profile": {
+      "intent": "today_focus",
+      "query_terms": ["focus", "today"],
+      "inferred_topics": []
+    },
     "why_selected": "...",
     "why_ignored_or_downweighted": "...",
     "contradiction_and_recency_resolution": ["..."],

@@ -64,6 +64,34 @@ class MemoryEngineTest(unittest.TestCase):
                 self.assertIn("why_ignored_or_downweighted", payload["reasoning"])
                 self.assertIn("contradiction_and_recency_resolution", payload["reasoning"])
 
+    def test_broad_risk_query_does_not_infer_a_topic_from_intent_words(self) -> None:
+        profile = self.engine.analyze_query("What commitments am I at risk of missing?")
+
+        self.assertEqual(profile.selected_topics, set())
+
+    def test_unseen_topic_summary_uses_inferred_cluster(self) -> None:
+        response = self.engine.answer("Summarize Southridge SOW status.")
+        selected_ids = {context_event.event.event_id for context_event in response.selected_context}
+
+        self.assertIn(138, selected_ids)
+        self.assertIn(153, selected_ids)
+        self.assertTrue(
+            all(
+                "southridge_sow" in context_event.signal.topics
+                for context_event in response.selected_context
+            )
+        )
+        self.assertIn("Southridge", response.answer)
+        self.assertIn("clause 8 is approved now", response.answer)
+
+    def test_topic_specific_risk_query_focuses_matching_topic(self) -> None:
+        response = self.engine.answer("What is at risk for the dental slot?")
+        selected_ids = {context_event.event.event_id for context_event in response.selected_context}
+
+        self.assertIn(94, selected_ids)
+        self.assertIn("Dr. Shah", response.answer)
+        self.assertIn("dentist", response.reasoning["query_profile"]["inferred_topics"])
+
 
 if __name__ == "__main__":
     unittest.main()
