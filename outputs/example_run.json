@@ -25,7 +25,13 @@
             "due or scheduled today",
             "current-day calendar anchor",
             "near-term deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 2.438,
+            "today_focus_signal": 7.84
+          }
         },
         {
           "event_id": 169,
@@ -44,7 +50,14 @@
             "commitment/deadline language",
             "due or scheduled today",
             "near-term deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "salience": 2.337,
+            "today_focus_signal": 6.94
+          }
         },
         {
           "event_id": 108,
@@ -63,7 +76,13 @@
             "update or correction",
             "due or scheduled today",
             "near-term deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "commitment": 0.45,
+            "salience": 2.237,
+            "today_focus_signal": 5.32,
+            "update": 0.75
+          }
         },
         {
           "event_id": 110,
@@ -81,7 +100,12 @@
             "update or correction",
             "due or scheduled today",
             "current-day calendar anchor"
-          ]
+          ],
+          "score_breakdown": {
+            "salience": 2.038,
+            "today_focus_signal": 5.02,
+            "update": 0.75
+          }
         },
         {
           "event_id": 170,
@@ -98,7 +122,11 @@
             "derived topic signal: uie_proposal",
             "due or scheduled today",
             "current-day calendar anchor"
-          ]
+          ],
+          "score_breakdown": {
+            "salience": 1.812,
+            "today_focus_signal": 5.02
+          }
         },
         {
           "event_id": 168,
@@ -115,7 +143,11 @@
             "derived topic signal: uie_proposal",
             "due or scheduled today",
             "current-day calendar anchor"
-          ]
+          ],
+          "score_breakdown": {
+            "salience": 1.812,
+            "today_focus_signal": 5.02
+          }
         },
         {
           "event_id": 167,
@@ -134,7 +166,14 @@
             "commitment/deadline language",
             "due or scheduled today",
             "near-term deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "salience": 1.25,
+            "today_focus_signal": 5.32
+          }
         },
         {
           "event_id": 77,
@@ -153,7 +192,13 @@
             "commitment/deadline language",
             "near-term deadline",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 0.95,
+            "today_focus_signal": 3.78
+          }
         },
         {
           "event_id": 83,
@@ -171,7 +216,13 @@
             "actionable language",
             "commitment/deadline language",
             "already overdue"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 1.25,
+            "today_focus_signal": 3.4
+          }
         },
         {
           "event_id": 78,
@@ -189,7 +240,13 @@
             "actionable language",
             "commitment/deadline language",
             "already overdue"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 1.2,
+            "today_focus_signal": 3.4
+          }
         },
         {
           "event_id": 82,
@@ -203,7 +260,11 @@
           "why_selected": [
             "due or scheduled today",
             "current-day calendar anchor"
-          ]
+          ],
+          "score_breakdown": {
+            "salience": 0.25,
+            "today_focus_signal": 5.02
+          }
         },
         {
           "event_id": 145,
@@ -219,7 +280,13 @@
             "commitment/deadline language",
             "near-term deadline",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 0.625,
+            "today_focus_signal": 3.78
+          }
         },
         {
           "event_id": 164,
@@ -237,7 +304,14 @@
             "actionable language",
             "commitment/deadline language",
             "already overdue"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "salience": 1.4,
+            "today_focus_signal": 3.4
+          }
         },
         {
           "event_id": 181,
@@ -256,7 +330,14 @@
             "commitment/deadline language",
             "near-term deadline",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -1.1,
+            "salience": 0.988,
+            "today_focus_signal": 3.78
+          }
         },
         {
           "event_id": 94,
@@ -274,7 +355,13 @@
             "actionable language",
             "commitment/deadline language",
             "near-term deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 0.988,
+            "today_focus_signal": 2.28
+          }
         },
         {
           "event_id": 183,
@@ -290,7 +377,12 @@
           "why_selected": [
             "derived topic signal: hiring_rubric",
             "due or scheduled today"
-          ]
+          ],
+          "score_breakdown": {
+            "future_observation_penalty": -1.1,
+            "salience": 0.775,
+            "today_focus_signal": 4.12
+          }
         },
         {
           "event_id": 153,
@@ -308,7 +400,13 @@
             "actionable language",
             "commitment/deadline language",
             "near-term deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 1.325,
+            "today_focus_signal": 1.56
+          }
         },
         {
           "event_id": 33,
@@ -326,7 +424,13 @@
             "actionable language",
             "commitment/deadline language",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "salience": 1.012,
+            "today_focus_signal": 1.86
+          }
         }
       ],
       "reasoning": {
@@ -461,6 +565,12 @@
             ]
           }
         },
+        "candidate_limit": 80,
+        "context_limits": {
+          "max_events": 18,
+          "max_tokens": 1300,
+          "max_events_per_topic": 6
+        },
         "retrieval_strategy": "BM25 lexical recall plus runtime signal scoring. Topic constraints are inferred from query/event term overlap, not from a list of expected questions.",
         "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."
       }
@@ -486,7 +596,13 @@
             "actionable language",
             "commitment/deadline language",
             "deadline inside 48 hours"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 6.8,
+            "salience": 2.438
+          }
         },
         {
           "event_id": 78,
@@ -504,7 +620,13 @@
             "actionable language",
             "commitment/deadline language",
             "missed or overdue deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 7.6,
+            "salience": 1.2
+          }
         },
         {
           "event_id": 5,
@@ -523,7 +645,14 @@
             "commitment/deadline language",
             "missed or overdue deadline",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 2.711,
+            "commitment": 0.45,
+            "risk_signal": 3.4,
+            "salience": 2.188
+          }
         },
         {
           "event_id": 169,
@@ -541,7 +670,14 @@
             "actionable language",
             "commitment/deadline language",
             "deadline inside 48 hours"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "risk_signal": 6.8,
+            "salience": 2.337
+          }
         },
         {
           "event_id": 164,
@@ -559,7 +695,14 @@
             "actionable language",
             "commitment/deadline language",
             "missed or overdue deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "risk_signal": 7.6,
+            "salience": 1.4
+          }
         },
         {
           "event_id": 108,
@@ -577,7 +720,13 @@
             "commitment/deadline language",
             "update or correction",
             "deadline inside 48 hours"
-          ]
+          ],
+          "score_breakdown": {
+            "commitment": 0.45,
+            "risk_signal": 5.0,
+            "salience": 2.237,
+            "update": 0.75
+          }
         },
         {
           "event_id": 77,
@@ -596,7 +745,13 @@
             "commitment/deadline language",
             "deadline inside 48 hours",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 6.2,
+            "salience": 0.95
+          }
         },
         {
           "event_id": 153,
@@ -614,7 +769,13 @@
             "actionable language",
             "commitment/deadline language",
             "deadline inside 48 hours"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 5.6,
+            "salience": 1.325
+          }
         },
         {
           "event_id": 83,
@@ -632,7 +793,13 @@
             "actionable language",
             "commitment/deadline language",
             "missed or overdue deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 5.6,
+            "salience": 1.25
+          }
         },
         {
           "event_id": 145,
@@ -648,7 +815,13 @@
             "commitment/deadline language",
             "deadline inside 48 hours",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 6.2,
+            "salience": 0.625
+          }
         },
         {
           "event_id": 0,
@@ -666,7 +839,13 @@
             "actionable language",
             "commitment/deadline language",
             "missed or overdue deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 4.6,
+            "salience": 2.188
+          }
         },
         {
           "event_id": 16,
@@ -682,7 +861,12 @@
           "why_selected": [
             "derived topic signal: uie_proposal",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 3.726,
+            "risk_signal": 2.0,
+            "salience": 1.812
+          }
         },
         {
           "event_id": 106,
@@ -699,7 +883,12 @@
             "derived topic signal: hiring_rubric",
             "commitment/deadline language",
             "deadline inside 48 hours"
-          ]
+          ],
+          "score_breakdown": {
+            "commitment": 0.45,
+            "risk_signal": 5.6,
+            "salience": 1.325
+          }
         },
         {
           "event_id": 181,
@@ -718,7 +907,14 @@
             "commitment/deadline language",
             "deadline inside 48 hours",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -1.1,
+            "risk_signal": 6.2,
+            "salience": 0.988
+          }
         },
         {
           "event_id": 33,
@@ -738,7 +934,13 @@
             "deadline inside a week",
             "dated reminder",
             "explicit consequence if missed"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 4.9,
+            "salience": 1.012
+          }
         },
         {
           "event_id": 167,
@@ -756,7 +958,14 @@
             "actionable language",
             "commitment/deadline language",
             "deadline inside 48 hours"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "risk_signal": 5.0,
+            "salience": 1.25
+          }
         },
         {
           "event_id": 94,
@@ -774,7 +983,13 @@
             "actionable language",
             "commitment/deadline language",
             "deadline inside 48 hours"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 4.4,
+            "salience": 0.988
+          }
         },
         {
           "event_id": 55,
@@ -793,7 +1008,14 @@
             "commitment/deadline language",
             "update or correction",
             "deadline inside a week"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 2.7,
+            "salience": 1.625,
+            "update": 0.75
+          }
         },
         {
           "event_id": 30,
@@ -811,7 +1033,13 @@
             "actionable language",
             "commitment/deadline language",
             "missed or overdue deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 3.4,
+            "salience": 1.175
+          }
         },
         {
           "event_id": 67,
@@ -829,7 +1057,13 @@
             "actionable language",
             "commitment/deadline language",
             "missed or overdue deadline"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "risk_signal": 3.4,
+            "salience": 1.062
+          }
         }
       ],
       "reasoning": {
@@ -968,6 +1202,12 @@
             ]
           }
         },
+        "candidate_limit": 80,
+        "context_limits": {
+          "max_events": 20,
+          "max_tokens": 1300,
+          "max_events_per_topic": 6
+        },
         "retrieval_strategy": "BM25 lexical recall plus runtime signal scoring. Topic constraints are inferred from query/event term overlap, not from a list of expected questions.",
         "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."
       }
@@ -996,7 +1236,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 7.2,
+            "salience": 2.188
+          }
         },
         {
           "event_id": 30,
@@ -1017,7 +1263,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 7.2,
+            "salience": 1.175
+          }
         },
         {
           "event_id": 24,
@@ -1037,7 +1289,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 5.0,
+            "salience": 2.188
+          }
         },
         {
           "event_id": 5,
@@ -1057,7 +1315,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 5.0,
+            "salience": 2.188
+          }
         },
         {
           "event_id": 0,
@@ -1077,7 +1341,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 5.0,
+            "salience": 2.188
+          }
         },
         {
           "event_id": 83,
@@ -1097,7 +1367,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 5.0,
+            "salience": 1.25
+          }
         },
         {
           "event_id": 78,
@@ -1117,7 +1393,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 5.0,
+            "salience": 1.2
+          }
         },
         {
           "event_id": 92,
@@ -1137,7 +1419,13 @@
             "repeated nudge or slipping language",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 5.1,
+            "salience": 1.075
+          }
         },
         {
           "event_id": 67,
@@ -1157,7 +1445,13 @@
             "deadline has passed",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 5.0,
+            "salience": 1.062
+          }
         },
         {
           "event_id": 29,
@@ -1176,7 +1470,12 @@
             "repeated nudge or slipping language",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "procrastination_signal": 5.1,
+            "salience": 0.725
+          }
         },
         {
           "event_id": 55,
@@ -1196,7 +1495,14 @@
             "update or correction",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 2.9,
+            "salience": 1.625,
+            "update": 0.75
+          }
         },
         {
           "event_id": 15,
@@ -1215,7 +1521,12 @@
             "repeated nudge or slipping language",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "procrastination_signal": 5.1,
+            "salience": 0.537
+          }
         },
         {
           "event_id": 60,
@@ -1234,7 +1545,13 @@
             "commitment/deadline language",
             "repeated nudge or slipping language",
             "action has been open for several days"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 4.2,
+            "salience": 0.662
+          }
         },
         {
           "event_id": 102,
@@ -1253,7 +1570,13 @@
             "commitment/deadline language",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 2.9,
+            "salience": 1.938
+          }
         },
         {
           "event_id": 164,
@@ -1272,7 +1595,14 @@
             "commitment/deadline language",
             "deadline has passed",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "procrastination_signal": 3.8,
+            "salience": 1.4
+          }
         },
         {
           "event_id": 108,
@@ -1290,7 +1620,13 @@
             "commitment/deadline language",
             "update or correction",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "commitment": 0.45,
+            "procrastination_signal": 1.7,
+            "salience": 2.237,
+            "update": 0.75
+          }
         },
         {
           "event_id": 124,
@@ -1308,7 +1644,12 @@
             "actionable language",
             "repeated nudge or slipping language",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "procrastination_signal": 3.9,
+            "salience": 0.725
+          }
         },
         {
           "event_id": 94,
@@ -1327,7 +1668,13 @@
             "commitment/deadline language",
             "action has been open for several days",
             "topic has repeated actionable events"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "commitment": 0.45,
+            "procrastination_signal": 2.9,
+            "salience": 0.988
+          }
         }
       ],
       "reasoning": {
@@ -1470,6 +1817,12 @@
             ]
           }
         },
+        "candidate_limit": 80,
+        "context_limits": {
+          "max_events": 18,
+          "max_tokens": 1300,
+          "max_events_per_topic": 6
+        },
         "retrieval_strategy": "BM25 lexical recall plus runtime signal scoring. Topic constraints are inferred from query/event term overlap, not from a list of expected questions.",
         "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."
       }
@@ -1495,7 +1848,15 @@
             "commitment/deadline language",
             "update or correction",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 3.801,
+            "commitment": 0.45,
+            "salience": 2.237,
+            "summary_signal": 3.587,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 110,
@@ -1512,7 +1873,14 @@
             "matches inferred topic cluster: uie_proposal",
             "update or correction",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 3.882,
+            "salience": 2.038,
+            "summary_signal": 2.938,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 125,
@@ -1529,7 +1897,14 @@
             "matches inferred topic cluster: uie_proposal",
             "update or correction",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 4.684,
+            "salience": 1.788,
+            "summary_signal": 2.325,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 140,
@@ -1547,7 +1922,15 @@
             "actionable language",
             "commitment/deadline language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 5.379,
+            "commitment": 0.45,
+            "salience": 1.938,
+            "summary_signal": 1.175,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 158,
@@ -1564,7 +1947,14 @@
             "matches inferred topic cluster: uie_proposal",
             "actionable language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 5.078,
+            "salience": 1.738,
+            "summary_signal": 1.4,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 170,
@@ -1580,7 +1970,13 @@
           "why_selected": [
             "matches inferred topic cluster: uie_proposal",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 4.808,
+            "salience": 1.812,
+            "summary_signal": 1.55,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 146,
@@ -1598,7 +1994,14 @@
             "matches inferred topic cluster: uie_proposal",
             "update or correction",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 1.947,
+            "salience": 2.163,
+            "summary_signal": 3.125,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 166,
@@ -1616,7 +2019,15 @@
             "actionable language",
             "commitment/deadline language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 2.327,
+            "commitment": 0.45,
+            "salience": 2.438,
+            "summary_signal": 2.2,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 0,
@@ -1634,7 +2045,15 @@
             "actionable language",
             "commitment/deadline language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 3.576,
+            "commitment": 0.45,
+            "salience": 2.188,
+            "summary_signal": 0.9,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 197,
@@ -1652,7 +2071,15 @@
             "matches inferred topic cluster: uie_proposal",
             "update or correction",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 1.81,
+            "future_observation_penalty": -1.1,
+            "salience": 2.1,
+            "summary_signal": 3.35,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 5,
@@ -1670,7 +2097,15 @@
             "actionable language",
             "commitment/deadline language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 3.801,
+            "commitment": 0.45,
+            "salience": 2.188,
+            "summary_signal": 0.06,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 169,
@@ -1688,7 +2123,16 @@
             "actionable language",
             "commitment/deadline language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 2.276,
+            "commitment": 0.45,
+            "future_observation_penalty": -0.85,
+            "salience": 2.337,
+            "summary_signal": 2.2,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 126,
@@ -1705,7 +2149,14 @@
             "matches inferred topic cluster: uie_proposal",
             "update or correction",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 1.854,
+            "salience": 1.788,
+            "summary_signal": 2.325,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 182,
@@ -1722,7 +2173,14 @@
             "matches inferred topic cluster: uie_proposal",
             "actionable language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 2.106,
+            "salience": 1.988,
+            "summary_signal": 2.2,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 119,
@@ -1740,7 +2198,15 @@
             "actionable language",
             "commitment/deadline language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 2.555,
+            "commitment": 0.45,
+            "salience": 1.938,
+            "summary_signal": 0.988,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 152,
@@ -1757,7 +2223,13 @@
             "matches inferred topic cluster: uie_proposal",
             "update or correction",
             "dependency or blocker signal"
-          ]
+          ],
+          "score_breakdown": {
+            "salience": 1.788,
+            "summary_signal": 3.55,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 142,
@@ -1775,7 +2247,15 @@
             "actionable language",
             "commitment/deadline language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 1.947,
+            "commitment": 0.45,
+            "salience": 1.938,
+            "summary_signal": 1.175,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 128,
@@ -1791,7 +2271,13 @@
           "why_selected": [
             "matches inferred topic cluster: uie_proposal",
             "update or correction"
-          ]
+          ],
+          "score_breakdown": {
+            "salience": 1.938,
+            "summary_signal": 3.125,
+            "topic_match": 6.996,
+            "update": 0.75
+          }
         },
         {
           "event_id": 56,
@@ -1808,7 +2294,14 @@
             "matches inferred topic cluster: uie_proposal",
             "actionable language",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "actionable": 0.35,
+            "bm25": 2.692,
+            "salience": 1.738,
+            "summary_signal": 0.8,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 168,
@@ -1824,7 +2317,13 @@
           "why_selected": [
             "matches inferred topic cluster: uie_proposal",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 2.165,
+            "salience": 1.812,
+            "summary_signal": 1.55,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 165,
@@ -1840,7 +2339,13 @@
           "why_selected": [
             "matches inferred topic cluster: uie_proposal",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 1.899,
+            "salience": 1.812,
+            "summary_signal": 1.55,
+            "topic_match": 6.996
+          }
         },
         {
           "event_id": 16,
@@ -1856,7 +2361,13 @@
           "why_selected": [
             "matches inferred topic cluster: uie_proposal",
             "lexical match to query terms"
-          ]
+          ],
+          "score_breakdown": {
+            "bm25": 2.227,
+            "salience": 1.812,
+            "summary_signal": 0.95,
+            "topic_match": 6.996
+          }
         }
       ],
       "reasoning": {
@@ -1958,6 +2469,12 @@
               27
             ]
           }
+        },
+        "candidate_limit": 80,
+        "context_limits": {
+          "max_events": 22,
+          "max_tokens": 1700,
+          "max_events_per_topic": 22
         },
         "retrieval_strategy": "BM25 lexical recall plus runtime signal scoring. Topic constraints are inferred from query/event term overlap, not from a list of expected questions.",
         "future_event_policy": "Calendar/reminder events after scenario time are treated as known future schedule. Non-calendar future timestamps are downweighted unless they carry a near-term deadline or explicit update."

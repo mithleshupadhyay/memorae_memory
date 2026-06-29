@@ -92,11 +92,12 @@ Default scenario time:
 - Query-time topic inference from overlap between the user's words and event-derived cluster terms.
 - IST-aware deadline and calendar parsing.
 - Hybrid retrieval using dependency-free BM25 plus urgency, commitment, update, recency, repeated-ask, dependency, and noise scoring.
+- Named ranking/context policy objects so retrieval behavior is tunable without editing engine code.
 - Selective context construction with event limits, token estimates, deduping, and topic caps.
 - Stale fact and contradiction handling.
-- Inspectable JSON output with selected context, reasoning, diagnostics, and ignored-context summaries.
+- Inspectable JSON output with selected context, score breakdowns, reasoning, diagnostics, and ignored-context summaries.
 - Offline deterministic execution with no external API dependency.
-- Regression tests for retrieval, signal extraction, context building, required query behavior, and unseen topic queries.
+- Regression tests for retrieval, signal extraction, context building, required query behavior, unseen topic queries, fail-fast validation, and scoring diagnostics.
 
 ## Architecture
 
@@ -127,9 +128,15 @@ memorae/
 |   `-- example_run.json
 |-- src/
 |   `-- memorae_memory/
+|       |-- answering/
+|       |   |-- reasoning.py
+|       |   `-- synthesizer.py
+|       |-- config.py
 |       |-- engine.py
 |       |-- events.py
 |       |-- main.py
+|       |-- query/
+|       |   `-- profile.py
 |       |-- schemas/
 |       |   |-- __init__.py
 |       |   `-- models.py
@@ -137,10 +144,14 @@ memorae/
 |       |-- time_utils.py
 |       `-- retrieval/
 |           |-- bm25.py
-|           `-- context_builder.py
+|           |-- context_builder.py
+|           |-- context_policy.py
+|           `-- ranker.py
 |-- tests/
 |   |-- test_context_builder.py
 |   |-- test_engine.py
+|   |-- test_query_profile.py
+|   |-- test_ranker.py
 |   `-- test_signals.py
 |-- Makefile
 |-- poetry.lock
@@ -203,6 +214,11 @@ The CLI returns JSON with one response per query:
       "timestamp": "2026-04-09T07:55:00Z",
       "source": "slack",
       "content": "...",
+      "score_breakdown": {
+        "bm25": 1.42,
+        "summary_signal": 4.35,
+        "topic_match": 6.99
+      },
       "why_selected": ["commitment/deadline language", "update or correction"]
     }
   ],
@@ -216,6 +232,14 @@ The CLI returns JSON with one response per query:
     "why_ignored_or_downweighted": "...",
     "contradiction_and_recency_resolution": ["..."],
     "uncertainty": "..."
+  },
+  "diagnostics": {
+    "candidate_limit": 80,
+    "context_limits": {
+      "max_events": 18,
+      "max_tokens": 1300,
+      "max_events_per_topic": 6
+    }
   }
 }
 ```

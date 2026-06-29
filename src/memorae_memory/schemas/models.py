@@ -33,9 +33,7 @@ class EventRecord:
             "topics": sorted(signal.topics),
             "due_at": signal.due_at.strftime("%Y-%m-%dT%H:%M:%SZ") if signal.due_at else None,
             "scheduled_at": (
-                signal.scheduled_at.strftime("%Y-%m-%dT%H:%M:%SZ")
-                if signal.scheduled_at
-                else None
+                signal.scheduled_at.strftime("%Y-%m-%dT%H:%M:%SZ") if signal.scheduled_at else None
             ),
             "why_selected": reasons,
         }
@@ -66,6 +64,7 @@ class CandidateEvent:
     score: float
     reasons: list[str] = field(default_factory=list)
     downrank_reasons: list[str] = field(default_factory=list)
+    score_breakdown: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -74,9 +73,16 @@ class ContextEvent:
     signal: EventSignal
     score: float
     reasons: list[str]
+    score_breakdown: dict[str, float] = field(default_factory=dict)
 
     def to_dict(self) -> JsonObject:
-        return self.event.to_context_dict(self.score, self.reasons, self.signal)
+        payload = self.event.to_context_dict(self.score, self.reasons, self.signal)
+        payload["score_breakdown"] = {
+            key: round(value, 3)
+            for key, value in sorted(self.score_breakdown.items())
+            if value != 0
+        }
+        return payload
 
 
 @dataclass(frozen=True)
@@ -100,7 +106,9 @@ class QueryResponse:
             "query": self.query,
             "intent": self.intent.value,
             "answer": self.answer,
-            "selected_context": [context_event.to_dict() for context_event in self.selected_context],
+            "selected_context": [
+                context_event.to_dict() for context_event in self.selected_context
+            ],
             "reasoning": self.reasoning,
             "diagnostics": self.diagnostics,
         }

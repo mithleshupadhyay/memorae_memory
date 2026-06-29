@@ -206,6 +206,9 @@ Current implemented tests verify:
 - Broad risk queries do not accidentally infer a topic from intent words such as "risk".
 - Unseen topic-summary queries, such as Southridge SOW status, use the inferred topic cluster.
 - Topic-specific risk queries, such as the dental slot, can narrow ranking to the matching topic.
+- Query profiling and candidate ranking are covered directly, not only through end-to-end engine tests.
+- Candidate score breakdowns are exposed in selected context so ranking decisions can be audited and regression-tested.
+- Ranker inputs are validated up front so missing or orphaned signal records fail fast instead of producing silent retrieval errors.
 
 Run them with:
 

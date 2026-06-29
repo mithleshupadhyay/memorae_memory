@@ -3,6 +3,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
+from memorae_memory.config import MemoryEngineConfig
 from memorae_memory.engine import MemoryEngine
 
 DATASET_PATH = Path(__file__).resolve().parents[1] / "data" / "memorae_mock_events.json"
@@ -91,6 +92,34 @@ class MemoryEngineTest(unittest.TestCase):
         self.assertIn(94, selected_ids)
         self.assertIn("Dr. Shah", response.answer)
         self.assertIn("dentist", response.reasoning["query_profile"]["inferred_topics"])
+
+    def test_selected_context_exposes_score_breakdown(self) -> None:
+        response = self.engine.answer("Summarize everything related to the UIE proposal.")
+        payload = response.to_dict()
+
+        first_context = payload["selected_context"][0]
+        self.assertIn("score_breakdown", first_context)
+        self.assertIn("bm25", first_context["score_breakdown"])
+        self.assertIn("summary_signal", first_context["score_breakdown"])
+
+    def test_empty_queries_are_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Query must not be empty"):
+            self.engine.answer("   ")
+
+    def test_engine_config_controls_candidate_limit(self) -> None:
+        engine = MemoryEngine.from_dataset(
+            str(DATASET_PATH),
+            config=MemoryEngineConfig(max_candidates=3),
+        )
+
+        response = engine.answer("What should I focus on today?")
+
+        self.assertLessEqual(response.diagnostics["candidate_count"], 3)
+        self.assertEqual(response.diagnostics["candidate_limit"], 3)
+
+    def test_invalid_engine_config_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "max_candidates"):
+            MemoryEngineConfig(max_candidates=0)
 
 
 if __name__ == "__main__":

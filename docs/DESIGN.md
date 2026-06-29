@@ -226,6 +226,8 @@ The scorer downranks:
 - Old overdue facts that are likely stale after newer updates
 - Future non-calendar messages that the user may not have seen yet
 
+Ranking weights live in `RankingConfig`, not scattered through the engine orchestration. Each selected candidate also carries a `score_breakdown` so reviewers can inspect which part of the score came from lexical match, inferred topic match, intent-specific signals, updates, and penalties.
+
 ## 5. Context Construction Strategy
 
 The assessment says production may have:
@@ -256,6 +258,8 @@ The context builder uses:
 - Duplicate-content removal
 - Topic caps
 - Ignored-context diagnostics
+
+The context limits are selected through `ContextPolicyConfig`, which keeps budget decisions explicit and testable for different query intents.
 
 For this dataset:
 

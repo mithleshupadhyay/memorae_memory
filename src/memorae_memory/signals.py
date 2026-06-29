@@ -214,19 +214,31 @@ PREFERENCE_PATTERNS = (
     "keep",
 )
 
+LATEST_DATE_PATTERNS = (
+    "moved from",
+    "ignore my earlier",
+    "now due",
+    "not friday",
+    "instead",
+    "actually",
+)
+
 
 def extract_signals(
     events: list[EventRecord],
     now: datetime = SCENARIO_NOW,
 ) -> dict[int, EventSignal]:
-    raw_signals = [_extract_event_signal(event, now) for event in events]
+    raw_signals = [_extract_event_signal(event=event, now=now) for event in events]
+
     topic_counts: Counter[str] = Counter()
     for signal in raw_signals:
         topic_counts.update(signal.topics)
 
     signals: dict[int, EventSignal] = {}
     for event, signal in zip(events, raw_signals, strict=True):
-        repeated_topic_score = sum(max(topic_counts[topic] - 1, 0) for topic in signal.topics) * 0.15
+        repeated_topic_score = (
+            sum(max(topic_counts[topic] - 1, 0) for topic in signal.topics) * 0.15
+        )
         salience_score = signal.salience_score + repeated_topic_score
         if event.source in {"calendar", "reminder"}:
             salience_score += 0.4
@@ -256,9 +268,18 @@ def extract_signals(
 def _extract_event_signal(event: EventRecord, now: datetime) -> EventSignal:
     content_lower = event.content.lower()
     topics = _extract_topics(content_lower)
-    date_mentions = _extract_date_mentions(event, content_lower)
-    due_at = _extract_due_at(event, content_lower, date_mentions)
-    scheduled_at = _extract_scheduled_at(event, content_lower, date_mentions)
+    date_mentions = _extract_date_mentions(event=event, content_lower=content_lower)
+    due_at = _extract_due_at(
+        event=event,
+        content_lower=content_lower,
+        date_mentions=date_mentions,
+    )
+    scheduled_at = _extract_scheduled_at(
+        event=event,
+        content_lower=content_lower,
+        date_mentions=date_mentions,
+    )
+
     is_noise = any(pattern in content_lower for pattern in NOISE_PATTERNS)
     is_actionable = any(pattern in content_lower for pattern in ACTION_PATTERNS)
     is_commitment = any(pattern in content_lower for pattern in COMMITMENT_PATTERNS)
@@ -286,17 +307,6 @@ def _extract_event_signal(event: EventRecord, now: datetime) -> EventSignal:
     if is_future_observation:
         reason_codes.append("future_observation")
 
-    urgency_score = _score_urgency(due_at, scheduled_at, now)
-    salience_score = _score_salience(
-        topics=topics,
-        due_at=due_at,
-        scheduled_at=scheduled_at,
-        is_actionable=is_actionable,
-        is_commitment=is_commitment,
-        is_update=is_update,
-        is_preference=is_preference,
-    )
-
     return EventSignal(
         event_id=event.event_id,
         topics=topics,
@@ -309,8 +319,16 @@ def _extract_event_signal(event: EventRecord, now: datetime) -> EventSignal:
         is_noise=is_noise,
         is_update=is_update,
         is_future_observation=is_future_observation,
-        urgency_score=urgency_score,
-        salience_score=salience_score,
+        urgency_score=_score_urgency(due_at=due_at, scheduled_at=scheduled_at, now=now),
+        salience_score=_score_salience(
+            topics=topics,
+            due_at=due_at,
+            scheduled_at=scheduled_at,
+            is_actionable=is_actionable,
+            is_commitment=is_commitment,
+            is_update=is_update,
+            is_preference=is_preference,
+        ),
         reason_codes=reason_codes,
     )
 
@@ -323,36 +341,34 @@ def _extract_topics(content_lower: str) -> set[str]:
 
     if "proposal" in content_lower and ("nina" in content_lower or "northstar" in content_lower):
         topics.add("uie_proposal")
-
     if "procurement" in content_lower and "uie" in content_lower:
         topics.add("uie_proposal")
-
     if "mom" in content_lower and "report" in content_lower:
         topics.add("mom_cardiology")
-
     return topics
 
 
 def _extract_date_mentions(event: EventRecord, content_lower: str) -> list[datetime]:
-    mentions: list[datetime] = []
     month_pattern = "|".join(MONTHS)
     exact_date_pattern = re.compile(
         rf"\b({month_pattern})\.?\s+(\d{{1,2}})(?:\s+(\d{{1,2}}):(\d{{2}})\s*(ist)?)?",
         flags=re.IGNORECASE,
     )
+    date_mentions: list[datetime] = []
+
     for match in exact_date_pattern.finditer(content_lower):
         month = MONTHS[match.group(1)[:3].lower()]
         day = int(match.group(2))
         hour = int(match.group(3)) if match.group(3) else 18
         minute = int(match.group(4)) if match.group(4) else 0
-        mentions.append(ist_datetime(month, day, hour, minute))
+        date_mentions.append(ist_datetime(month, day, hour, minute))
 
     if "eod" in content_lower:
-        mentions.append(end_of_day_ist(event.timestamp))
+        date_mentions.append(end_of_day_ist(event.timestamp))
 
     if "tonight" in content_lower:
         local_event = to_ist(event.timestamp)
-        mentions.append(
+        date_mentions.append(
             datetime(
                 local_event.year,
                 local_event.month,
@@ -363,33 +379,40 @@ def _extract_date_mentions(event: EventRecord, content_lower: str) -> list[datet
             ).astimezone(UTC)
         )
 
-    weekday_mentions = _extract_weekday_mentions(event, content_lower)
-    mentions.extend(weekday_mentions)
-    return sorted(set(mentions))
+    date_mentions.extend(_extract_weekday_mentions(event=event, content_lower=content_lower))
+    return sorted(set(date_mentions))
 
 
 def _extract_weekday_mentions(event: EventRecord, content_lower: str) -> list[datetime]:
-    mentions: list[datetime] = []
     if "appointment" in content_lower and not re.search(r"\bapr\s+\d{1,2}\b", content_lower):
-        return mentions
+        return []
 
     event_local = to_ist(event.timestamp)
+    date_mentions: list[datetime] = []
     for weekday_name, weekday_index in WEEKDAYS.items():
         if weekday_name not in content_lower:
             continue
         if re.search(rf"\b{weekday_name}\s+apr\s+\d{{1,2}}\b", content_lower):
             continue
+
         delta_days = (weekday_index - event_local.weekday()) % 7
-        if delta_days == 0:
-            due_date = event_local.date()
-        else:
-            due_date = (event_local + timedelta(days=delta_days)).date()
-        hour = 10 if "morning" in content_lower else 18
-        mentions.append(
-            datetime(due_date.year, due_date.month, due_date.day, hour, 0, tzinfo=event_local.tzinfo)
-            .astimezone(UTC)
+        due_date = (
+            event_local.date()
+            if delta_days == 0
+            else (event_local + timedelta(days=delta_days)).date()
         )
-    return mentions
+        hour = 10 if "morning" in content_lower else 18
+        date_mentions.append(
+            datetime(
+                due_date.year,
+                due_date.month,
+                due_date.day,
+                hour,
+                0,
+                tzinfo=event_local.tzinfo,
+            ).astimezone(UTC)
+        )
+    return date_mentions
 
 
 def _extract_due_at(
@@ -419,16 +442,13 @@ def _extract_due_at(
         )
     )
     if has_due_language:
-        if _prefers_latest_date(content_lower):
-            return max(date_mentions)
-        return min(date_mentions)
+        prefers_latest_date = any(pattern in content_lower for pattern in LATEST_DATE_PATTERNS)
+        return max(date_mentions) if prefers_latest_date else min(date_mentions)
 
     if event.source == "reminder":
         return min(date_mentions)
-
     if event.source == "calendar" and "pending confirmation" in content_lower:
         return min(date_mentions)
-
     return None
 
 
@@ -460,27 +480,10 @@ def _extract_scheduled_at(
     if not has_schedule_language:
         return None
 
-    if event.source == "calendar" and "tonight" in content_lower:
+    prefers_latest_date = any(pattern in content_lower for pattern in LATEST_DATE_PATTERNS)
+    if (event.source == "calendar" and "tonight" in content_lower) or prefers_latest_date:
         return max(date_mentions)
-
-    if _prefers_latest_date(content_lower):
-        return max(date_mentions)
-
     return min(date_mentions)
-
-
-def _prefers_latest_date(content_lower: str) -> bool:
-    return any(
-        pattern in content_lower
-        for pattern in (
-            "moved from",
-            "ignore my earlier",
-            "now due",
-            "not friday",
-            "instead",
-            "actually",
-        )
-    )
 
 
 def _score_urgency(
@@ -488,7 +491,7 @@ def _score_urgency(
     scheduled_at: datetime | None,
     now: datetime,
 ) -> float:
-    urgency_score = 0.0
+    score = 0.0
     today_start = start_of_day_ist(now)
     tomorrow_start = next_day_start_ist(now)
     two_days = now + timedelta(hours=48)
@@ -497,15 +500,14 @@ def _score_urgency(
         if not target:
             continue
         if target < now:
-            urgency_score += 2.0
+            score += 2.0
         elif today_start <= target < tomorrow_start:
-            urgency_score += 1.8
+            score += 1.8
         elif target <= two_days:
-            urgency_score += 1.2
+            score += 1.2
         else:
-            urgency_score += 0.4
-
-    return urgency_score
+            score += 0.4
+    return score
 
 
 def _score_salience(
@@ -517,19 +519,19 @@ def _score_salience(
     is_update: bool,
     is_preference: bool,
 ) -> float:
-    salience_score = 0.0
+    score = 0.0
     if topics:
-        salience_score += 0.8 + (0.2 * len(topics))
+        score += 0.8 + (0.2 * len(topics))
     if due_at:
-        salience_score += 1.0
+        score += 1.0
     if scheduled_at:
-        salience_score += 0.6
+        score += 0.6
     if is_actionable:
-        salience_score += 0.7
+        score += 0.7
     if is_commitment:
-        salience_score += 0.8
+        score += 0.8
     if is_update:
-        salience_score += 0.9
+        score += 0.9
     if is_preference:
-        salience_score += 0.4
-    return salience_score
+        score += 0.4
+    return score

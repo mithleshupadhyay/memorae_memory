@@ -89,8 +89,12 @@ flowchart TD
     B --> S[src/memorae_memory/schemas/models.py]
     S --> C[src/memorae_memory/signals.py]
     C --> D[src/memorae_memory/engine.py]
-    D --> E[src/memorae_memory/retrieval/bm25.py]
+    D --> Q[src/memorae_memory/query/profile.py]
+    D --> R[src/memorae_memory/retrieval/ranker.py]
+    R --> E[src/memorae_memory/retrieval/bm25.py]
     D --> F[src/memorae_memory/retrieval/context_builder.py]
+    D --> A1[src/memorae_memory/answering/synthesizer.py]
+    D --> A2[src/memorae_memory/answering/reasoning.py]
     D --> G[src/memorae_memory/main.py]
     G --> H[outputs/example_run.json]
 ```
@@ -102,11 +106,17 @@ flowchart TD
 | `data/memorae_mock_events.json` | The raw dataset from the assignment. |
 | `src/memorae_memory/events.py` | Loads JSON events and gives each event a stable ID. |
 | `src/memorae_memory/schemas/models.py` | Defines the dataclass models used across the engine. |
+| `src/memorae_memory/config.py` | Defines engine, ranking, and context policy defaults. |
 | `src/memorae_memory/time_utils.py` | Handles UTC/IST date conversion and scenario time. |
 | `src/memorae_memory/signals.py` | Extracts topics, deadlines, commitments, updates, noise, and urgency. |
+| `src/memorae_memory/query/profile.py` | Builds the query profile and infers topic clusters. |
 | `src/memorae_memory/retrieval/bm25.py` | Performs simple keyword-style retrieval. |
+| `src/memorae_memory/retrieval/ranker.py` | Scores and ranks candidate events using lexical and signal features. |
+| `src/memorae_memory/retrieval/context_policy.py` | Chooses context limits from the query profile. |
 | `src/memorae_memory/retrieval/context_builder.py` | Selects a small useful context from ranked events. |
-| `src/memorae_memory/engine.py` | Main brain: retrieval, ranking, answer generation, reasoning. |
+| `src/memorae_memory/answering/synthesizer.py` | Builds extractive answers from selected context. |
+| `src/memorae_memory/answering/reasoning.py` | Builds inspectable reasoning and diagnostics. |
+| `src/memorae_memory/engine.py` | Thin orchestration layer that wires profiling, ranking, context, answer, and reasoning. |
 | `src/memorae_memory/main.py` | CLI entrypoint. |
 | `outputs/example_run.json` | Example output for the required queries. |
 | `docs/DESIGN.md` | Design document. |
@@ -202,7 +212,7 @@ is_commitment = true
 File:
 
 ```text
-src/memorae_memory/engine.py
+src/memorae_memory/query/profile.py
 ```
 
 The query is converted into a query profile.
@@ -243,7 +253,7 @@ Files:
 
 ```text
 src/memorae_memory/retrieval/bm25.py
-src/memorae_memory/engine.py
+src/memorae_memory/retrieval/ranker.py
 ```
 
 The retriever combines two things:
@@ -275,6 +285,8 @@ For example:
 - A deadline update should be boosted.
 - An overdue task should be boosted.
 - A newer correction should override old information.
+
+Each ranked candidate also keeps a `score_breakdown`. That makes the final score auditable: reviewers can see how much came from BM25, topic match, urgency/risk/procrastination signals, update language, and penalties.
 
 ### Step 5: Build Context
 
@@ -317,7 +329,7 @@ The final output also says what was ignored.
 File:
 
 ```text
-src/memorae_memory/engine.py
+src/memorae_memory/answering/synthesizer.py
 ```
 
 The current implementation uses deterministic extractive synthesis.
